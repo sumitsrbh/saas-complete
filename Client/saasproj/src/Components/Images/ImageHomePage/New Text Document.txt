@@ -1,0 +1,38 @@
+ <List underline="none" onClick={(e, val) => setTabMostPopular(val)}>
+              <Typography>Most Popular</Typography>
+              {/* <Tab label="Most Popular" sx={{ backgroundColor: '#b5a606' }} /> */}
+            </List>
+
+            <List
+              underline="none"
+              onClick={(e, val) => setTabMightInterestU(val)}
+            >
+              <Typography>Might Interest You</Typography>
+
+              {/* <Tab
+                label="Might Interest You"
+                sx={{
+                  backgroundColor: 'black',
+                  color: 'white',
+                }}
+              /> */}
+            </List>
+
+
+  {/* <List sx={{ display: 'flex' }}>
+              <ListItemButton
+                sx={{ display: 'flex', backgroundColor: '#2a2a2a' }}
+                component="a"
+              >
+                <ListItemText
+                  sx={{ textAlign: 'center' }}
+                  primary="Might Interest You"
+                />
+              </ListItemButton>
+              <ListItemButton sx={{ backgroundColor: '#ffd400' }} component="a">
+                <ListItemText
+                  sx={{ textAlign: 'center' }}
+                  primary="Most Popular"
+                />
+              </ListItemButton>
+            </List> */}
