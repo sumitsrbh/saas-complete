@@ -8,6 +8,7 @@ console.log('In the data context')
 export const DataProvider = ({ children }) => {
   const [cards, setCards] = useState([])
   const [enquiry, setEnquiry] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   console.log('in the data context')
 
   useEffect(() => {
@@ -19,6 +20,7 @@ export const DataProvider = ({ children }) => {
         ])
         setCards(cardsResult)
         setEnquiry(enquiryResult)
+        setIsLoading(false)
       } catch (error) {
         console.log('Fetching error in Datacontext')
       }
@@ -27,7 +29,7 @@ export const DataProvider = ({ children }) => {
   }, [])
 
   return (
-    <DataContext.Provider value={{ cards, enquiry }}>
+    <DataContext.Provider value={{ cards, enquiry, isLoading }}>
       {children}
     </DataContext.Provider>
   )

@@ -12,6 +12,7 @@ import { youMightLike } from '../../Data'
 import { SaaSButton } from '../ThemeCust'
 import { CardArry } from './HomefirstRowFstColCard'
 import { CardBuidler, truncateText } from './HomeScndRwFstColm'
+import { useData } from '../DataContext/DataContext'
 
 export function CardArryMightLike({
   badge,
@@ -76,6 +77,7 @@ export function CardArryMightLike({
 }
 
 function MightLike() {
+  const { cards } = useData()
   const [activeCard, setActiveCard] = useState()
   const handleHover = (index) => setActiveCard(index)
   return (

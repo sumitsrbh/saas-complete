@@ -167,10 +167,6 @@ export function CardBuidlerV2({ cardImgUrl, cardHeader, cardText, cardBadge }) {
 function HomeScndRwFstColm() {
   const { cards } = useData()
   const cardsReady = cards.length > 0 && cards !== 'undefined'
-  console.log('In the Home2ns Row 2nd col')
-  console.log('Value of cards:', cards)
-  console.log('value of cardsReady', cardsReady)
-  console.log('value of cards when cardsReady', cardsReady && cards.length)
 
   return cardsReady ? (
     <Grid container marginTop={8}>
