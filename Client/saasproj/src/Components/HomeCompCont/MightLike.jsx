@@ -39,7 +39,7 @@ export function CardArryMightLike({
               image={backgrndImg}
               sx={{
                 width: 70,
-                height: 70,
+                height: '100%',
               }}
             />
           </Card>
@@ -77,7 +77,7 @@ export function CardArryMightLike({
 }
 
 function MightLike() {
-  const { cards } = useData()
+  const { cards, isLoading } = useData()
   const [activeCard, setActiveCard] = useState()
   const handleHover = (index) => setActiveCard(index)
   return (
@@ -87,10 +87,10 @@ function MightLike() {
           backgroundColor: '#262320',
         }}
       >
-        {youMightLike.map((card, index) => (
+        {cards.slice(-10, cards.length).map((card, index) => (
           <CardArryMightLike
-            backgrndImg={card.imageUrl}
-            headerText={truncateText(card.headerText, 40)}
+            backgrndImg={card.imagelink}
+            headerText={truncateText(card.headertext, 40)}
             badge={card.badge}
             handleHover={handleHover}
           />

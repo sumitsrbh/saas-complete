@@ -122,9 +122,22 @@ function Footer() {
               }}
             >
               Your #1 source for
-              <Link sx={{ color: '#ffd420' }}>SaaS news</Link>, trends &
-              happenings. Discuss new products, tool launches, community
-              updates, funding updates and anything related to the space.
+              <Link
+                sx={{
+                  color: '#ffd420',
+                  textDecoration: 'none',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                    textDecorationColor: '#ffd420',
+                  },
+                }}
+              >
+                {' '}
+                SaaS news
+              </Link>
+              , trends & happenings. Discuss new products, tool launches,
+              community updates, funding updates and anything related to the
+              space.
               <br></br>
               <br></br> We are looking to help the bootstrapped SaaS founders
               worldwide get a platform to showcase their products and learn from
