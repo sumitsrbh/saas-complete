@@ -1,33 +1,17 @@
-import {
-  Box,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Grid,
-} from '@mui/material'
-import React, { useState } from 'react'
-
-import imgObjHom from '../Images/ImageHomePage/ImgArryHom'
-import { youMightLike } from '../../Data'
+import { Card, CardActionArea, CardMedia, Grid } from '@mui/material'
 
 import SubscribeCardAlike from './SubscribeCard'
 import HomefirstRowFstColCard from './HomefirstRowFstColCard'
 import HomeFrstRowScndCol from './HomeFrstRowScndCol'
-import HomeScndRwFstColm, {
-  CardBuidler,
-  CardBuidlerV2,
-} from './HomeScndRwFstColm'
+
 import { EmptySapce } from '../ThemeCust'
-import Footer from '../Footer/Footer'
-import MorePost, { cardArray } from '../MorePostFrmRdr/MorePost'
 import MightLike from './MightLike'
+import HomeScndRwFstColm from './HomeScndRwFstColm'
+import MorePost from '../MorePostFrmRdr/MorePost'
 
 function Home() {
   // console.log('HOme start')
-  const [tabMightInterestU, setTabMightInterestU] = useState()
-  const [tabMostPopular, setTabMostPopular] = useState()
+
   return (
     <Grid
       className="main-container"

@@ -14,9 +14,9 @@ import React, { useEffect, useState } from 'react'
 import { SaaSButton } from '../ThemeCust'
 // import imgObjHom from '../Images/ImageHomePage/ImgArryHom'
 import { fetchImgObjHom } from '../../Data'
-import { imgCard1 } from '../Images/ImageHomePage/ImgArryHom'
-import { EmptySapce } from '../ThemeCust'
 import styled from 'styled-components'
+import { useData } from '../DataContext/DataContext'
+import imgObjHom from '../Images/ImageHomePage/ImgArryHom'
 
 const CustomProgrssBar = styled(LinearProgress)`
   .MuiLinearProgress-barColorPrimary {
@@ -65,39 +65,14 @@ export function CardArry({
 }
 
 function HomefirstRowFstColCard() {
+  const { cards } = useData()
   const [activeCard, setActiveCard] = useState(null)
-  const [imgObjHom, setImgObjHom] = useState([])
+  const imgObjHom = cards.slice(0, 3)
   // console.log('Array length', imgObjHom.length)
   const theme = useTheme()
   const isScreenMd = useMediaQuery(theme.breakpoints.down('md'))
   const isScreenSm = useMediaQuery(theme.breakpoints.down('sm'))
-  // console.log('Fetched data from card in component line 73')
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchImgObjHom()
-        const cards = response && response.cards.slice(0, 3)
-        // console.log('Fetched data from card in component', response)
-        setImgObjHom(cards)
-      } catch (error) {
-        console.error('Error fetching data:', error)
-      }
-    }
-    fetchData()
-  }, [])
-
-  // fetchImgObjHom()
-  //   .then((response) => {
-  //     console.log(response)
-  // setImgObjHom(response)
-  //   })
-  //   .catch((err) => {
-  //     console.log('erro fetching data', err)
-  //   })
-
-  console.log('imgObjHom[0]', imgObjHom[0], typeof imgObjHom[0])
-  console.log('imgObjHom', imgObjHom, typeof imgObjHom)
   const handleHover = (index) => {
     setActiveCard(index)
   }

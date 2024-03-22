@@ -3,6 +3,7 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
+  CircularProgress,
   Grid,
   Typography,
 } from '@mui/material'
@@ -166,9 +167,12 @@ export function CardBuidlerV2({ cardImgUrl, cardHeader, cardText, cardBadge }) {
 
 function HomeScndRwFstColm() {
   const { cards } = useData()
-  const cardsReady = cards.length > 0 && cards !== 'undefined'
+  if (cards.length === 0) {
+    return <CircularProgress />
+  }
+  // const cardsReady = cards.length > 0 && cards !== 'undefined'
 
-  return cardsReady ? (
+  return (
     <Grid container marginTop={8}>
       <Grid container className="sndrw-first-row">
         <Grid item xs={6}>
@@ -247,7 +251,7 @@ function HomeScndRwFstColm() {
         </Grid>
       </Grid>
     </Grid>
-  ) : null
+  )
 }
 
 export default HomeScndRwFstColm
