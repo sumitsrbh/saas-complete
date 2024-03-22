@@ -1,4 +1,11 @@
-import { Card, CardActionArea, CardMedia, Grid } from '@mui/material'
+import {
+  Card,
+  CardActionArea,
+  CardMedia,
+  Grid,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
 
 import SubscribeCardAlike from './SubscribeCard'
 import HomefirstRowFstColCard from './HomefirstRowFstColCard'
@@ -10,8 +17,9 @@ import HomeScndRwFstColm from './HomeScndRwFstColm'
 import MorePost from '../MorePostFrmRdr/MorePost'
 
 function Home() {
-  // console.log('HOme start')
-
+  const theme = useTheme()
+  const isScreenMd = useMediaQuery(theme.breakpoints.down('md'))
+  const isScreenSm = useMediaQuery(theme.breakpoints.down('sm'))
   return (
     <Grid
       className="main-container"
@@ -26,16 +34,18 @@ function Home() {
       }}
     >
       <Grid item xs={12}>
-        <Card>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              image="https://assets-global.website-files.com/5f0a4c1cde4cddac7d2ad3b4/63984428ecdaebb9c7b4a6bc_NCJ%20qualetics%20ads.png"
-            />
-          </CardActionArea>
-        </Card>
+        {!isScreenMd && (
+          <Card>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                image="https://assets-global.website-files.com/5f0a4c1cde4cddac7d2ad3b4/63984428ecdaebb9c7b4a6bc_NCJ%20qualetics%20ads.png"
+              />
+            </CardActionArea>
+          </Card>
+        )}
       </Grid>
-      <Grid marginTop={5} className="first-row" container spacing={4}>
+      <Grid marginTop={1} className="first-row" container spacing={4}>
         <Grid item xs={8}>
           <HomefirstRowFstColCard />
         </Grid>
@@ -53,20 +63,21 @@ function Home() {
         <Grid item xs={8}>
           <HomeScndRwFstColm />
         </Grid>
+        {!isScreenMd && (
+          <Grid item xs={4}>
+            <SubscribeCardAlike
+              header={'Subscribe'}
+              text={'Get our latest posts and announcements in your inbox'}
+            />
 
-        <Grid item xs={4}>
-          <SubscribeCardAlike
-            header={'Subscribe'}
-            text={'Get our latest posts and announcements in your inbox'}
-          />
-
-          <SubscribeCardAlike
-            header={'You might also like'}
-            text={''}
-            formOn={false}
-          />
-          <MightLike />
-        </Grid>
+            <SubscribeCardAlike
+              header={'You might also like'}
+              text={''}
+              formOn={false}
+            />
+            <MightLike />
+          </Grid>
+        )}
       </Grid>
 
       <MorePost />

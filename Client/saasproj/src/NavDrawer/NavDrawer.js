@@ -22,7 +22,10 @@ import { Login } from '@mui/icons-material'
 
 function NavDrawer({ links }) {
   const theme = useTheme()
+
+  const isBelowLg = useMediaQuery(theme.breakpoints.down('lg'))
   const isBelowMd = useMediaQuery(theme.breakpoints.down('md'))
+  const isBelowSm = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <AppBar sx={StyleDropDownfrmAppbr}>
@@ -46,30 +49,40 @@ function NavDrawer({ links }) {
                 <ImgLogoComp />
               </IconButton>
             </Grid>
-            <Grid item xs={1} />
-            <Grid item xs={5}>
+            <Grid item xs={4} md={6}>
               <NavLinks links={links} />
             </Grid>
-            <Grid item xs={1} />
-            <Grid item xs={2}>
-              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Grid
+              item
+              xs={4}
+              md={4}
+              sx={{ display: 'flex', justifyItems: 'space-around ' }}
+            >
+              {!isBelowMd && (
                 <SaaSButton
                   color="secondary"
                   variant="contained"
                   sx={{
-                    fontWeight: '400',
+                    fontWeight: { md: '300', lg: '400' },
                     letterSpacing: '0.8',
-                    fontSize: '16px',
+                    fontSize: { md: '14px', lg: '16px' },
+                    marginRight: '10px',
                   }}
                 >
                   Promote Your SaaS
                 </SaaSButton>
-              </Box>
+              )}
+              <SaaSButton component={Link} to={'/login'}>
+                <Login />
+                <Typography
+                  sx={{
+                    fontSize: { md: '14px', lg: '16px' },
+                  }}
+                >
+                  Login
+                </Typography>
+              </SaaSButton>
             </Grid>
-            <SaaSButton component={Link} to={'/login'}>
-              <Login />
-              <Typography>Login</Typography>
-            </SaaSButton>
           </Grid>
         )}
       </Toolbar>

@@ -10,10 +10,10 @@ function NavLinks({ links, oreintationCust = 'horizontal' }) {
   // }
 
   return (
-    <Box sx={StyleDropDownfrmAppbr}>
+    <Box sx={StyleDropDownfrmAppbr} justifyItems="center">
       <Tabs
         TabIndicatorProps={{
-          sx: { backgroundColor: '#dde03d' },
+          sx: { backgroundColor: '#dde03d', marginRight: '0px' },
         }}
         textColor="inherit"
         value={currentTab}
@@ -31,9 +31,9 @@ function NavLinks({ links, oreintationCust = 'horizontal' }) {
             to={link.route}
             onMouseEnter={() => setCurrentTab(index)}
             sx={{
-              fontWeight: '400',
+              fontWeight: { md: '300', lg: '400' },
               letterSpacing: '0.8',
-              fontSize: '16px',
+              fontSize: { md: '14px', lg: '16px' },
             }}
           ></Tab>
         ))}

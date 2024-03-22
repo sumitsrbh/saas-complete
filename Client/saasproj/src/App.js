@@ -13,6 +13,7 @@ import LogIn from './Components/Admin/LogIn'
 import AdminPanel from './Components/Admin/AdminPanel'
 import CardTemplate from './Components/Admin/CardTemplate'
 import { DataProvider } from './Components/DataContext/DataContext'
+import NavDr from './NavDrawer/NavDr'
 
 const navIndexArray = [
   { text: 'Home', route: '/' },
@@ -26,6 +27,7 @@ function App() {
     <DataProvider>
       <Paper elevation={0}>
         <NavDrawer links={navIndexArray} />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about-us" element={<AboutUs />} />

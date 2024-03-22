@@ -17,10 +17,9 @@ export const StyleDropDownfrmAppbr = {
   '& a': { textTransform: 'none' },
   '& a:hover': { color: '#dde03d' },
 
-  '& div': { alignItems: 'center' },
+  '& div': { alignItems: 'center', justifyContent: 'center' },
   backgroundColor: '#242424',
-  margin: 'auto',
-  padding: '10px 10px',
+  // padding: '10px 10px',
 }
 
 export const SaaSButton = styled(Button)`
