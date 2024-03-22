@@ -22,7 +22,6 @@ const navIndexArray = [
   // { text: 'Promote Your SaaS', route: '/promote-your-saas' },
 ]
 function App() {
-  console.log('In the app.js')
   return (
     <DataProvider>
       <Paper elevation={0}>

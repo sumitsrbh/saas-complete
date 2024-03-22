@@ -64,18 +64,24 @@ function MyNavLink() {
           'Metrics',
           'Operations',
         ].map((text, index) => (
-          <div key={text}>
-            <Divider sx={{ backgroundColor: 'white' }} />
+          <div>
+            <Divider key={index} sx={{ backgroundColor: 'white' }} />
             <ListItem
+              key={index}
               sx={{
                 alignItems: 'center',
                 paddingLeft: '0px',
                 paddingRight: '0px',
               }}
             >
-              <ListItemText primary={text} sx={{ color: 'white' }} />
+              <ListItemText
+                key={index}
+                primary={text}
+                sx={{ color: 'white' }}
+              />
               <ListItemIcon>
                 <NavigateNextIcon
+                  key={index}
                   sx={{
                     color: '#ffd400',
                     width: '100%',
@@ -123,6 +129,7 @@ function Footer() {
             >
               Your #1 source for
               <Link
+                key="saas news"
                 sx={{
                   color: '#ffd420',
                   textDecoration: 'none',
@@ -164,6 +171,7 @@ function Footer() {
             </Typography>
             {importantLinkArry.map((link, index) => (
               <ListItemText
+                key={index}
                 primary={link}
                 sx={{
                   color: '#ffffff',

@@ -5,9 +5,9 @@ import { StyleDropDownfrmAppbr } from '../Components/ThemeCust'
 
 function NavLinks({ links, oreintationCust = 'horizontal' }) {
   const [currentTab, setCurrentTab] = useState(0)
-  const handleTabChange = (e, newValue) => {
-    setCurrentTab(newValue)
-  }
+  // const handleTabChange = (e, newValue) => {
+  //   setCurrentTab(newValue)
+  // }
 
   return (
     <Box sx={StyleDropDownfrmAppbr}>
@@ -19,6 +19,7 @@ function NavLinks({ links, oreintationCust = 'horizontal' }) {
         value={currentTab}
         role="navigation"
         orientation={oreintationCust}
+        // onChange={handleTabChange}
       >
         {links.map((link, index) => (
           <Tab

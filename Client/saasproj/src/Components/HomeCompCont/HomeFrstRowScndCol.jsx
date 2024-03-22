@@ -7,14 +7,9 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material'
-import imgObjHom from '../Images/ImageHomePage/ImgArryHom'
-import { fetchImgObjHom } from '../../Data'
-import { useEffect, useState } from 'react'
-import cardArray from '../../Data'
 import { useData } from '../DataContext/DataContext'
 
 function HomeFrstRowScndCol() {
-  const [imgObjHom, setImgObjHom] = useState([])
   const theme = useTheme()
   const { cards } = useData()
 
@@ -84,7 +79,6 @@ function HomeFrstRowScndCol() {
                 },
               }}
             >
-              {console.log('Item index', item)}
               {item.headertext}
               <ListItemText // for the undeline
                 style={{

@@ -10,13 +10,11 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { SaaSButton } from '../ThemeCust'
 // import imgObjHom from '../Images/ImageHomePage/ImgArryHom'
-import { fetchImgObjHom } from '../../Data'
 import styled from 'styled-components'
 import { useData } from '../DataContext/DataContext'
-import imgObjHom from '../Images/ImageHomePage/ImgArryHom'
 
 const CustomProgrssBar = styled(LinearProgress)`
   .MuiLinearProgress-barColorPrimary {
