@@ -45,14 +45,14 @@ function Home() {
           </Card>
         )}
       </Grid>
-      <Grid marginTop={1} className="first-row" container spacing={4}>
-        <Grid item xs={8}>
+      <Grid container marginTop={1} className="first-row" spacing={4}>
+        <Grid item xs={12} md={7} lg={8}>
           <HomefirstRowFstColCard />
         </Grid>
 
         {/* Second column of first row */}
 
-        <Grid item xs={4}>
+        <Grid item xs={12} md={5} lg={4}>
           {/* Top right container */}
           <HomeFrstRowScndCol />
         </Grid>
@@ -60,11 +60,11 @@ function Home() {
 
       <EmptySapce />
       <Grid className="second-row" container spacing={4}>
-        <Grid item xs={8}>
+        <Grid item xs={12} md={7} lg={8}>
           <HomeScndRwFstColm />
         </Grid>
         {!isScreenMd && (
-          <Grid item xs={4}>
+          <Grid itemxs={4} md={5} lg={4}>
             <SubscribeCardAlike
               header={'Subscribe'}
               text={'Get our latest posts and announcements in your inbox'}
