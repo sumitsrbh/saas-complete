@@ -55,16 +55,7 @@ function SubscribeForm({ inputFields }) {
     </>
   )
 }
-function cardBuilderV3(imgUrl, text) {
-  return (
-    <Card sx={{ backgroundColor: 'transparent' }}>
-      <CardContent sx={{ display: 'flex' }}>
-        <CardMedia src={imgUrl} sx={{ width: '50%' }} />
-        <Typography>{text}</Typography>
-      </CardContent>
-    </Card>
-  )
-}
+
 
 function SubscribeCardAlike({ header, text, formOn = true }) {
   return (

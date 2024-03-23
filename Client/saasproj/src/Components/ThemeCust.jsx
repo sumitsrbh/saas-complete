@@ -6,7 +6,7 @@ export function EmptySapce() {
   return (
     <Grid
       className="epmty-space32"
-      style={{ height: '10px', width: '100%' }}
+      style={{ height: '20px', width: '100%' }}
       // backgroundColor: 'red'
     />
   )

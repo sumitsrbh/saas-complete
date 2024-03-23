@@ -55,7 +55,7 @@ function HomeFrstRowScndCol() {
                   margin: '0 0 14px',
                   padding: '10px 0 0',
                   textShadow: '0 1 2px rgba(0,0,0,0.5)',
-                  fontSize: '14px',
+                  fontSize: { lg: '25px', md: '12px', sm: '10px' },
                   color: '#474444',
 
                   letterSpacing: '0.8',
@@ -73,6 +73,7 @@ function HomeFrstRowScndCol() {
                     backgroundColor: '#242424',
                     border: 'none',
                     margin: '20px 0 10px',
+
                     textDecorationStyle: 'solid',
                   }}
                 />

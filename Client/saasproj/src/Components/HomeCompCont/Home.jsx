@@ -3,6 +3,7 @@ import {
   CardActionArea,
   CardMedia,
   Grid,
+  Paper,
   useMediaQuery,
   useTheme,
 } from '@mui/material'
@@ -21,9 +22,9 @@ function Home() {
   const isScreenMd = useMediaQuery(theme.breakpoints.down('md'))
   const isScreenSm = useMediaQuery(theme.breakpoints.down('sm'))
   return (
-    <Grid
+    <Paper
       className="main-container"
-      container
+      elevation={0}
       sx={{
         marginRight: 'auto',
         marginLeft: 'auto',
@@ -45,31 +46,25 @@ function Home() {
           </Card>
         )}
       </Grid>
-      <Grid container marginTop={1} className="first-row" spacing={4}>
-        <Grid item xs={12} md={7} lg={8}>
+      <Grid container marginTop={1} spacing={4}>
+        <Grid item lg={8} md={7} xs={12}>
           <HomefirstRowFstColCard />
         </Grid>
-
-        {/* Second column of first row */}
-
-        <Grid item xs={12} md={5} lg={4}>
-          {/* Top right container */}
+        <Grid item lg={4} md={5} xs={12}>
           <HomeFrstRowScndCol />
         </Grid>
       </Grid>
 
-      <EmptySapce />
-      <Grid className="second-row" container spacing={4}>
-        <Grid item xs={12} md={7} lg={8}>
+      <Grid container spacing={4}>
+        <Grid item lg={8} md={7} xs={12}>
           <HomeScndRwFstColm />
         </Grid>
         {!isScreenMd && (
-          <Grid itemxs={4} md={5} lg={4}>
+          <Grid marginTop={5} item lg={4} md={5} xs={0}>
             <SubscribeCardAlike
               header={'Subscribe'}
               text={'Get our latest posts and announcements in your inbox'}
             />
-
             <SubscribeCardAlike
               header={'You might also like'}
               text={''}
@@ -79,9 +74,8 @@ function Home() {
           </Grid>
         )}
       </Grid>
-
       <MorePost />
-    </Grid>
+    </Paper>
   )
 }
 

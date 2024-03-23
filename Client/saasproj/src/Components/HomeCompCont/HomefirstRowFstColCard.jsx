@@ -54,7 +54,16 @@ export function CardArry({
               '&:hover': { color: '#dde03d' },
             }}
           >
-            {headerText}
+            <Typography
+              sx={{
+                textAlign: 'left',
+                fontSize: { lg: '14px', md: '13px', sm: '12px' },
+                fontWeight: { lg: '600', md: '500', sm: '400' },
+              }}
+            >
+              {headerText}
+            </Typography>
+            {/* {headerText} */}
           </Link>
         </CardContent>
       </Card>
@@ -75,8 +84,8 @@ function HomefirstRowFstColCard() {
     setActiveCard(index)
   }
   return (
-    <Grid container>
-      <Grid item xs={12}>
+    <Card container>
+      <Card>
         {imgObjHom.length ? (
           <Card
             className="card-for-backgroundImg"
@@ -89,11 +98,12 @@ function HomefirstRowFstColCard() {
               transition: 'background-image 0.8s ease-In-Out',
               backgroundSize: 'cover',
               color: '#dde03d',
-              fontSize: '16px',
-              fontWeight: '400',
+              fontSize: { lg: '16px', md: '14px', sm: '12px' },
+              fontWeight: { lg: '400', md: '350', sm: '300' },
               letterSpacing: '9px',
-              height: '90vh',
+              height: '83vh',
               position: 'relative',
+              width: '100%',
             }}
           >
             <CardContent>
@@ -113,7 +123,7 @@ function HomefirstRowFstColCard() {
                     variant="h4"
                     sx={{
                       marginTop: '10px',
-                      fontSize: '30px',
+                      fontSize: { lg: '30px', md: '24px', sm: '20px' },
                       fontWeight: '600',
                       letterSpacing: '-0.06em',
                       transition: 'color 0.8s ease-In-Out',
@@ -147,8 +157,8 @@ function HomefirstRowFstColCard() {
             )}
           </Card>
         ) : null}
-      </Grid>
-    </Grid>
+      </Card>
+    </Card>
   )
 }
 
