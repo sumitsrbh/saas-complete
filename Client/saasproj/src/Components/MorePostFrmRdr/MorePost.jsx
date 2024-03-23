@@ -1,25 +1,13 @@
-import { BorderColor } from '@mui/icons-material'
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-  Paper,
-  Typography,
-} from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import { CardBuidler, CardBuidlerV2 } from '../HomeCompCont/HomeScndRwFstColm'
 import { SaaSButton } from '../ThemeCust'
 import { useData } from '../DataContext/DataContext'
+import { CardBuidler } from '../CardBuilder/CardBuilder'
 
 function MorePost() {
   const { cards } = useData()
-  console.log('more post:Value of CardLength', cards.length)
   const initialCardLength = Math.max(12, cards.length)
-  console.log('more post:Value of initialCardLength', initialCardLength)
   const [visibleCards, setVisibleCards] = useState(initialCardLength)
-  console.log('more post:Value of visible cards', visibleCards)
 
   const handleLoadMore = () => {
     setVisibleCards((prevValue) => Math.min(prevValue + 3, cards.length))
@@ -34,6 +22,7 @@ function MorePost() {
             fontSize: '22px',
             fontWeight: '700',
             lineHeight: '32px',
+            marginLeft: '15px',
           }}
         >
           More post from reader
@@ -51,17 +40,19 @@ function MorePost() {
                 cardText={card.body}
                 animation={false}
                 cardContentDisplay="flex"
-                width="50%"
+                truncateValue={400}
+                width="100%"
               />
             ))}
       </Grid>
       {visibleCards < cards.length && (
-        <Grid item xs={8} sx={{ textAlign: 'center' }}>
+        <Grid item xs={8}>
           <SaaSButton
             variant="outlined"
             onClick={handleLoadMore}
             sx={{
               width: '90%',
+
               paddingTop: '20px',
               paddingBottom: '20px',
               borderRadius: '40px',

@@ -1,11 +1,9 @@
 import { Grid, Typography } from '@mui/material'
 import React from 'react'
-import HomeScndRwFstColm, {
-  CardBuidler,
-  CardBuidlerV2,
-} from '../HomeCompCont/HomeScndRwFstColm'
+
 import { SaaSButton } from '../ThemeCust'
 import { infoCards } from '../../Data'
+import { CardBuidler } from '../CardBuilder/CardBuilder'
 
 function AmazingTeam() {
   return (

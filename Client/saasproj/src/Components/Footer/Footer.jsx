@@ -19,6 +19,7 @@ import FacebookIcon from '@mui/icons-material/Facebook'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
+import FooterLink from './FooterLink'
 const importantLinkArry = [
   'Submit a Press Release',
   'Editorial Policy',
@@ -48,72 +49,30 @@ function CustomPaper({ children }) {
   )
 }
 
-function MyNavLink() {
-  return (
-    <Box sx={{ backgroundColor: 'transparent' }}>
-      <Typography variant="h6" gutterBottom>
-        Navigation
-      </Typography>
-      <List>
-        {[
-          'Home',
-          'Companies',
-          'Events',
-          'Fundraise',
-          'Listicle',
-          'Metrics',
-          'Operations',
-        ].map((text, index) => (
-          <div>
-            <Divider key={index} sx={{ backgroundColor: 'white' }} />
-            <ListItem
-              key={index}
-              sx={{
-                alignItems: 'center',
-                paddingLeft: '0px',
-                paddingRight: '0px',
-              }}
-            >
-              <ListItemText
-                key={index}
-                primary={text}
-                sx={{ color: 'white' }}
-              />
-              <ListItemIcon>
-                <NavigateNextIcon
-                  key={index}
-                  sx={{
-                    color: '#ffd400',
-                    width: '100%',
-                  }}
-                />
-              </ListItemIcon>
-            </ListItem>
-          </div>
-        ))}
-        <Divider sx={{ backgroundColor: 'white' }} />
-      </List>
-    </Box>
-  )
-}
-
 function Footer() {
   return (
-    <Box
+    <Paper
+      container
       sx={{
         backgroundColor: '#242424',
 
         marginRight: 'auto',
         marginLeft: 'auto',
         paddingTop: '20px',
-        paddingLeft: '80px',
-        paddingRight: '70px',
+        paddingLeft: { lg: '70px', md: '80px', sm: '90px' },
+        paddingRight: { lg: '70px', md: '80px', sm: '90px' },
         borderTop: '1px solid',
         borderColor: '#ffd400',
       }}
     >
-      <Grid container spacing={2} marginTop={5}>
-        <Grid item xs={3}>
+      <Grid
+        container
+        spacing={2}
+        marginTop={5}
+        display={'flex'}
+        justifyContent={'space-between'}
+      >
+        <Grid item lg={3} md={6} sm={12}>
           <CustomPaper>
             <ImgLogoComp />
             <Typography
@@ -123,7 +82,6 @@ function Footer() {
                 color: 'white',
                 // position: 'relative',
                 minHheight: '1px',
-
                 fontSize: '14px',
               }}
             >
@@ -152,20 +110,20 @@ function Footer() {
             </Typography>
           </CustomPaper>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item lg={3} md={6} sm={12}>
           <Box
             elevation={0}
             sx={{ backgroundColor: 'transparent', color: '#ffd400' }}
           >
-            <MyNavLink />
+            <FooterLink />
           </Box>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item lg={2} md={6} sm={12}>
           <CustomPaper>
             <Typography
               variant="h6"
               gutterBottom
-              sx={{ color: '#ffd400', marginLeft: '35px' }}
+              sx={{ color: '#ffd400', marginLeft: '0px', width: '100%' }}
             >
               Important Links
             </Typography>
@@ -175,9 +133,8 @@ function Footer() {
                 primary={link}
                 sx={{
                   color: '#ffffff',
-                  marginLeft: '35px',
-                  padding: '13px 0 0 0',
 
+                  textAlign: 'left',
                   '&:hover': {
                     textDecoration: 'underline',
                   },
@@ -186,17 +143,25 @@ function Footer() {
             ))}
           </CustomPaper>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item lg={3} md={6} sm={12}>
           <Paper
             elevation={0}
-            sx={{ backgroundColor: 'transparent', color: '#ffd400' }}
+            sx={{
+              backgroundColor: 'transparent',
+              color: '#ffd400',
+              width: '100%',
+              // textAlign: 'center',
+            }}
           >
             <Typography
               variant="h6"
               gutterBottom
-              sx={{ color: '#ffd400', marginBottom: '20px' }}
+              sx={{
+                color: '#ffd400',
+                marginBottom: '20px',
+              }}
             >
-              Important Links
+              Connect with us
             </Typography>
             <IconButton aria-label="Facebook" sx={iconStyle}>
               <FacebookIcon />
@@ -213,7 +178,7 @@ function Footer() {
           </Paper>
         </Grid>
       </Grid>
-    </Box>
+    </Paper>
   )
 }
 

@@ -8,11 +8,9 @@ import {
   Paper,
 } from '@mui/material'
 import React, { useState } from 'react'
-import { youMightLike } from '../../Data'
-import { SaaSButton } from '../ThemeCust'
-import { CardArry } from './HomefirstRowFstColCard'
-import { CardBuidler, truncateText } from './HomeScndRwFstColm'
+
 import { useData } from '../DataContext/DataContext'
+import { truncateText } from '../CardBuilder/TextTruncate'
 
 export function CardArryMightLike({
   badge,

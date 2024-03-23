@@ -12,7 +12,6 @@ import SubscribeCardAlike from './SubscribeCard'
 import HomefirstRowFstColCard from './HomefirstRowFstColCard'
 import HomeFrstRowScndCol from './HomeFrstRowScndCol'
 
-import { EmptySapce } from '../ThemeCust'
 import MightLike from './MightLike'
 import HomeScndRwFstColm from './HomeScndRwFstColm'
 import MorePost from '../MorePostFrmRdr/MorePost'
@@ -28,13 +27,13 @@ function Home() {
       sx={{
         marginRight: 'auto',
         marginLeft: 'auto',
-        paddingLeft: '80px',
-        paddingRight: '70px',
+        paddingLeft: { lg: '70px', md: '20px', sm: '10px' },
+        paddingRight: { lg: '70px', md: '20px', sm: '10px' },
         marginTop: '130px',
         marginBottom: '30px',
       }}
     >
-      <Grid item xs={12}>
+      <Grid xs={12}>
         {!isScreenMd && (
           <Card>
             <CardActionArea>
