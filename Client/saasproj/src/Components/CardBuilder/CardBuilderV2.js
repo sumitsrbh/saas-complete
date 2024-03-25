@@ -33,7 +33,7 @@ export function CardBuidlerV2({
           component="img"
           image={cardImgUrl}
           style={{
-            Width: '250px',
+            width: '100%',
             height: '220px',
             transition: 'transform 0.5s ease',
             transform: 'translateX(0)',
