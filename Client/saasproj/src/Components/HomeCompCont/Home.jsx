@@ -18,6 +18,7 @@ import MorePost from '../MorePostFrmRdr/MorePost'
 
 function Home() {
   const theme = useTheme()
+  const isScreenLg = useMediaQuery(theme.breakpoints.down('lg'))
   const isScreenMd = useMediaQuery(theme.breakpoints.down('md'))
   const isScreenSm = useMediaQuery(theme.breakpoints.down('sm'))
   return (
@@ -46,20 +47,20 @@ function Home() {
         )}
       </Grid>
       <Grid container marginTop={1} spacing={4}>
-        <Grid item lg={8} md={7} xs={12}>
+        <Grid item md={8} xs={12}>
           <HomefirstRowFstColCard />
         </Grid>
-        <Grid item lg={4} md={5} xs={12}>
+        <Grid item md={4} xs={12}>
           <HomeFrstRowScndCol />
         </Grid>
       </Grid>
 
       <Grid container spacing={4}>
-        <Grid item lg={8} md={7} xs={12}>
+        <Grid item md={8} sm={12}>
           <HomeScndRwFstColm />
         </Grid>
         {!isScreenMd && (
-          <Grid marginTop={5} item lg={4} md={5} xs={0}>
+          <Grid marginTop={5} item md={4} xs={0}>
             <SubscribeCardAlike
               header={'Subscribe'}
               text={'Get our latest posts and announcements in your inbox'}

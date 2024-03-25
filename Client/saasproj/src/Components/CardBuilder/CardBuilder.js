@@ -55,35 +55,3 @@ export function CardBuidler({
     </Card>
   )
 }
-
-export function CardBuidlerV2({ cardImgUrl, cardHeader, cardText, cardBadge }) {
-  return (
-    <Card elevation={0}>
-      <CardActionArea>
-        <CardContent>
-          <CardMedia
-            component="img"
-            image={cardImgUrl}
-            style={{
-              width: '100%',
-              height: 'auto',
-              transition: 'transform 0.5s ease',
-              transform: 'translateX(0)',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateX(5px)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateX(0)'
-            }}
-          ></CardMedia>
-
-          <Typography variant="h6">{cardHeader}</Typography>
-          <Typography variant="caption">
-            {truncateText(cardText, 150)}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  )
-}

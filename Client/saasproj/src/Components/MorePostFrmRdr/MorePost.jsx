@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { SaaSButton } from '../ThemeCust'
 import { useData } from '../DataContext/DataContext'
 import { CardBuidler } from '../CardBuilder/CardBuilder'
+import { CardBuidlerV2 } from '../CardBuilder/CardBuilderV2'
 
 function MorePost() {
   const { cards } = useData()
@@ -33,15 +34,17 @@ function MorePost() {
           cards
             .slice(12, visibleCards)
             .map((card, index) => (
-              <CardBuidler
+              <CardBuidlerV2
                 key={index}
                 cardImgUrl={card.imagelink}
                 cardHeader={card.headertext}
+                cardDate={card.date}
                 cardText={card.body}
+                cardBadge={card.badge}
                 animation={false}
                 cardContentDisplay="flex"
                 truncateValue={400}
-                width="100%"
+                cardWidth={'100%'}
               />
             ))}
       </Grid>

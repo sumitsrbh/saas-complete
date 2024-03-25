@@ -47,7 +47,7 @@ function HomeFrstRowScndCol() {
           }}
         >
           {typeof cards !== 'undefined' && cards.length > 0 ? (
-            cards.slice(3, 8).map((item, index) => (
+            cards.slice(3, 7).map((item, index) => (
               <ListItemText
                 key={index}
                 sx={{
