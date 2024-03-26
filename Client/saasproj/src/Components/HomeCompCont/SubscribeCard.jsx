@@ -1,12 +1,4 @@
-import {
-  Card,
-  CardContent,
-  Typography,
-  TextField,
-  Button,
-  CardMedia,
-  Box,
-} from '@mui/material'
+import { Card, CardContent, Typography, TextField, Box } from '@mui/material'
 import { useState } from 'react'
 import { SaaSButton } from '../ThemeCust'
 
@@ -55,7 +47,6 @@ function SubscribeForm({ inputFields }) {
     </>
   )
 }
-
 
 function SubscribeCardAlike({ header, text, formOn = true }) {
   return (

@@ -4,7 +4,6 @@ import {
   ListItemText,
   Tab,
   Tabs,
-  Typography,
   useMediaQuery,
   useTheme,
 } from '@mui/material'

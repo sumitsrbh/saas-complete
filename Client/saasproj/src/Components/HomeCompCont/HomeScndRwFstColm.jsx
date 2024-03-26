@@ -1,14 +1,10 @@
 import {
-  Card,
   CardActionArea,
-  CardContent,
   CardMedia,
   CircularProgress,
   Grid,
-  Typography,
 } from '@mui/material'
 import React from 'react'
-import { EmptySapce } from '../ThemeCust'
 import { useData } from '../DataContext/DataContext'
 import { CardBuidler } from '../CardBuilder/CardBuilder'
 import { CardBuidlerV2 } from '../CardBuilder/CardBuilderV2'
