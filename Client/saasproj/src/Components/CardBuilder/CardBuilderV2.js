@@ -1,12 +1,9 @@
 import {
-  Box,
   Card,
   CardActionArea,
   CardContent,
   CardHeader,
   CardMedia,
-  Grid,
-  Paper,
   Typography,
 } from '@mui/material'
 import { truncateText } from './TextTruncate'

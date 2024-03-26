@@ -41,7 +41,7 @@ function MorePost() {
                 cardDate={card.date}
                 cardText={card.body}
                 cardBadge={card.badge}
-                animation={false}
+                animation={true}
                 cardContentDisplay="flex"
                 truncateValue={400}
                 cardWidth={'100%'}

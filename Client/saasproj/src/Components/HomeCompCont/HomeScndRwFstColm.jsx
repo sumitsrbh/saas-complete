@@ -27,6 +27,7 @@ function HomeScndRwFstColm() {
             // cardContentDisplay="row"
             truncate={true}
             truncateValue={150}
+            animation={true}
           />
         </Grid>
         <Grid item md={6} sm={6} xs={12}>
