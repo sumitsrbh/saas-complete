@@ -50,12 +50,13 @@ const initialValues = {
 function LogIn() {
   const [input, setInputs] = useState(initialValues)
   const [logged, setLoggedIn] = useState({ state: false, token: 0 })
+  const [error, setError] = useState(null)
   const navigate = useNavigate()
 
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.trim(),
     }))
   }
   const formSubmitHandler = async (e) => {
@@ -75,7 +76,7 @@ function LogIn() {
       }
     } catch (err) {
       console.log(err)
-      return <Alert severity="error">{err.response}.</Alert>
+      setError(err.response.data.message || 'Wrong credentials.')
     }
   }
   return (
@@ -83,6 +84,7 @@ function LogIn() {
       <Paper elevation={3} sx={{ padding: '20px', backgroundColor: '#242424' }}>
         <SubscribeCardAlike header="DSHG Sonic" formOn={false} />
         <div>
+          {error && <Alert severity="error">{error}</Alert>}
           <form onSubmit={formSubmitHandler}>
             <TextField
               name="email"

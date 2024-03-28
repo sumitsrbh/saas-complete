@@ -24,7 +24,7 @@ function HomeScndRwFstColm() {
             cardHeader={cards[4].headertext}
             cardText={cards[4].body}
             cardBadge={cards[4].badge}
-            // cardContentDisplay="row"
+            cardContentDisplay="row"
             truncate={true}
             truncateValue={150}
             animation={true}

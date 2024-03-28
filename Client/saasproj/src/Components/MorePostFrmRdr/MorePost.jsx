@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material'
+import { Grid, Typography, useMediaQuery, useTheme } from '@mui/material'
 import React, { useState } from 'react'
 import { SaaSButton } from '../ThemeCust'
 import { useData } from '../DataContext/DataContext'
@@ -9,13 +9,17 @@ function MorePost() {
   const { cards } = useData()
   const initialCardLength = Math.max(12, cards.length)
   const [visibleCards, setVisibleCards] = useState(initialCardLength)
+  const theme = useTheme()
+  const isScreenLg = useMediaQuery(theme.breakpoints.down('lg'))
+  const isScreenMd = useMediaQuery(theme.breakpoints.down('md'))
+  const isScreenSm = useMediaQuery(theme.breakpoints.down('sm'))
 
   const handleLoadMore = () => {
     setVisibleCards((prevValue) => Math.min(prevValue + 3, cards.length))
   }
   return (
     <Grid container spacing={3} marginTop={5}>
-      <Grid item xs={8}>
+      <Grid item lg={8} md={10} sm={12}>
         <Typography
           variant="h5"
           sx={{

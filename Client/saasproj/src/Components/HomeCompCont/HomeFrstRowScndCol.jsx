@@ -45,7 +45,7 @@ function HomeFrstRowScndCol() {
             borderBottom: '1px solid #ffd400',
           }}
         >
-          {typeof cards !== 'undefined' && cards.length > 0 ? (
+          {cards !== 'undefined' && cards.length > 0 ? (
             cards.slice(3, 7).map((item, index) => (
               <ListItemText
                 key={index}

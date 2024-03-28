@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardContent,
   CardMedia,
@@ -17,7 +18,7 @@ import { useData } from '../DataContext/DataContext'
 
 const CustomProgrssBar = styled(LinearProgress)`
   .MuiLinearProgress-barColorPrimary {
-    background-color: #ffd400;
+    background-color: #dde03d;
   }
 `
 
@@ -82,6 +83,10 @@ function HomefirstRowFstColCard() {
   const handleHover = (index) => {
     setActiveCard(index)
   }
+
+  const progressWidth =
+    activeCard !== null ? ((activeCard + 1) / imgObjHom.length) * 100 : 0
+
   return (
     <Card container>
       <Card>
@@ -106,7 +111,7 @@ function HomefirstRowFstColCard() {
             }}
           >
             <CardContent>
-              <card>
+              <Box>
                 <CardContent
                   sx={{
                     transition: 'all 0.8s ease-In-Out',
@@ -133,12 +138,19 @@ function HomefirstRowFstColCard() {
                       : imgObjHom[activeCard]?.headertext}
                   </Typography>
                 </CardContent>
-              </card>
+              </Box>
             </CardContent>
             {!isScreenSm && (
               <Grid container sx={{ position: 'absolute', bottom: '0' }}>
                 <Grid item xs={12}>
-                  <CustomProgrssBar variant="determinate" />
+                  <CustomProgrssBar
+                    variant="determinate"
+                    value={progressWidth}
+                    sx={{
+                      position: 'realtive',
+                      width: '100%',
+                    }}
+                  />
                   <Grid container spacing={1}>
                     {imgObjHom.map((item, index) => (
                       <CardArry

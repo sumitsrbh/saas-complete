@@ -30,6 +30,7 @@ function NavLinks({ links, oreintationCust = 'horizontal' }) {
             // to={`/${link.route}`}
             to={link.route}
             onMouseEnter={() => setCurrentTab(index)}
+            // onMouseLeave={() => setCurrentTab(null)}
             sx={{
               fontWeight: { md: '300', lg: '400' },
               letterSpacing: '0.8',

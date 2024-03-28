@@ -5,6 +5,8 @@ import {
   CardHeader,
   CardMedia,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material'
 import { truncateText } from './TextTruncate'
 import { SaaSButton } from '../ThemeCust'
@@ -16,16 +18,23 @@ export function CardBuidlerV2({
   cardHeader = '',
   cardText = '',
   cardBadge = '',
-  cardWidth = '',
   truncate = true,
   truncateValue = 0,
   cardContentDisplay = '',
   cardDate = '',
   animation = true,
 }) {
+  const theme = useTheme()
+  const isBelowLG = useMediaQuery(theme.breakpoints.down('lg'))
   return (
     <Card elevation={0} sx={{ marginBottom: '20px' }}>
-      <CardActionArea sx={{ display: cardContentDisplay }}>
+      <CardActionArea
+        sx={{
+          display: cardContentDisplay,
+          flexDirection: isBelowLG ? 'column' : 'row',
+          alignItems: 'center',
+        }}
+      >
         <CardMedia
           component="img"
           image={cardImgUrl}
@@ -44,7 +53,6 @@ export function CardBuidlerV2({
             },
           })}
         />
-
         <CardContent>
           {/* <Typography variant="h6">{cardHeader}</Typography> */}
           <CardHeader title={cardHeader} sx={{ padding: '0px' }} />

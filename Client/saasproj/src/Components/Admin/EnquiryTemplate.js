@@ -15,11 +15,11 @@ function EnquiryTemplate() {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/api/enquiry')
-        console.log('response from enquiry-', response.data)
+        // console.log('response from enquiry-', response.data)
         if (response.status === 200) {
           setEnquiryData(response.data.data.enquiry)
           setLoading(false)
-          console.log('Enquiry data:', enquiryData.data)
+          // console.log('Enquiry data:', enquiryData.data)
         }
       } catch (err) {
         console.log('enquiry error', err)

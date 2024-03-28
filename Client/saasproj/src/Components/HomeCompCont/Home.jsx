@@ -34,7 +34,7 @@ function Home() {
         marginBottom: '30px',
       }}
     >
-      <Grid xs={12}>
+      <Grid>
         {!isScreenMd && (
           <Card>
             <CardActionArea>
