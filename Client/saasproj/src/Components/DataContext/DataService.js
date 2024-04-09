@@ -30,7 +30,7 @@ export const fetchEnquiry = async () => {
   }
 }
 
-export const fetchDelete = async (id) => {
+export const fetchDeleteCard = async (id) => {
   try {
     const response = await axios.delete(`http://127.0.0.1:8000/api/cards/${id}`)
     console.log('response after delete', response)
@@ -39,6 +39,25 @@ export const fetchDelete = async (id) => {
     console.log('response after deletion: ', response.data.message)
     if (response.data.message === 'Card deleted') {
       return reversedCardsData
+    }
+  } catch (error) {
+    console.log('Error deletion', error)
+    throw error
+  }
+}
+
+export const fetchDeleteEnquiry = async (id) => {
+  console.log('equiry staged for deletion', id)
+  try {
+    const response = await axios.delete(
+      `http://127.0.0.1:8000/api/enquiry/${id}`
+    )
+    console.log('response after delete', response)
+    const enquiryData = response && response.data.data
+    const reversedEnquiryData = enquiryData.reverse()
+    console.log('response after deletion: ', response.data.message)
+    if (response.data.message === 'Enquiry deleted') {
+      return reversedEnquiryData
     }
   } catch (error) {
     console.log('Error deletion', error)

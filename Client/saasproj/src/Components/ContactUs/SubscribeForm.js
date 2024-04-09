@@ -1,4 +1,4 @@
-import { Box, Paper, TextField } from '@mui/material'
+import { Alert, Box, Paper, TextField } from '@mui/material'
 import axios from 'axios'
 import { useState } from 'react'
 import { SaaSButton } from '../ThemeCust'
@@ -36,6 +36,7 @@ const inputPropStyle = {
 
 function SubscribeForm() {
   const [input, setInputs] = useState(initialValues)
+  const [enquiryCreated, setEnquiryCreated] = useState(false)
 
   const handleChange = (e) => {
     setInputs((prevState) => ({
@@ -56,14 +57,16 @@ function SubscribeForm() {
       setInputs((e) => {
         input.response = response
       })
+      setEnquiryCreated(true)
       console.log('server response-input:', input.response)
     } catch (err) {
       console.error('Error submitting enquiry:', err)
     }
-  }
-  const buttonClickHandler = (e) => {
     setInputs(initialValues)
   }
+  // const buttonClickHandler = (e) => {
+  //   setInputs(initialValues)
+  // }
 
   return (
     <Paper
@@ -142,7 +145,7 @@ function SubscribeForm() {
           <SaaSButton
             type="submit"
             onSubmit={formSubmitHandler}
-            onClick={buttonClickHandler}
+            // onClick={buttonClickHandler}
             sx={{
               borderRadius: '10px',
               textTransform: 'none',
@@ -155,6 +158,7 @@ function SubscribeForm() {
           </SaaSButton>
         </Box>
       </form>
+      <Alert severity="success">Enquiry Created</Alert>
     </Paper>
   )
 }

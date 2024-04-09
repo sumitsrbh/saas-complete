@@ -43,38 +43,12 @@ function DeleteButton({ id }) {
     }
   }
 
-  // const handleDelete = async () => {
-  //   try {
-  //     const response = await axios.delete(
-  //       `http://127.0.0.1:8000/api/cards/${id}`
-  //     )
-
-  //     console.log('response after deletion: ', response.data.message)
-  //     if (response.data === 'Card deleted') {
-  //       setDeleteStatus('success')
-  //       updateCards()
-  //       setCardsDataChanged(true)
-  //     }
-  //   } catch (error) {
-  //     console.log('Erro deletion', error)
-  //     setDeleteStatus('error')
-  //   }
-  // }
-
   return (
     <>
       <DeleteIcon onClick={handleDelete} />
       {cardDeleteState && <Alert severity="success"> Card Deleted.</Alert>}
       {setCardDeleteState(false)}
     </>
-
-    // <>
-    //   <DeleteIcon onClick={handleDelete} />
-    //   {deleteStatus === 'success' && <Alert severity="success">Deleted.</Alert>}
-    //   {deleteStatus === 'error' && (
-    //     <Alert severity="error">Error Deletion.</Alert>
-    //   )}
-    // </>
   )
 }
 
@@ -95,9 +69,6 @@ function CardTable() {
     )
   }, [cards])
 
-  // const handleRowClick = () => {
-  //   return [setCardDeleteState, cardDelete, setDeleteId, isLoading]
-  // }
   return (
     <Paper sx={{ height: '400px', width: 'auto' }}>
       <DataGrid

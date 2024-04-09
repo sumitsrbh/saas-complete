@@ -22,6 +22,7 @@ exports.findAllEnquiry = catchAsync(async (req, res, next) => {
     },
   })
 })
+
 exports.findEnquiry = catchAsync(async (req, res, next) => {
   const enquiry = await Enquiry.find(req.body)
   res.status(200).json({
@@ -33,9 +34,18 @@ exports.findEnquiry = catchAsync(async (req, res, next) => {
 })
 
 exports.deleteEnquiry = catchAsync(async (req, res, next) => {
-  const enquiry = await Card.findByIdAndDelete(req.params.id, req.body)
-  res.json(200).json({
-    status: 'success',
-    data: null,
+  const enquiry = await Enquiry.findByIdAndDelete(req.params.id, req.body)
+  if (!enquiry) {
+    return res.status(404).json({
+      message: 'Enquiry not found',
+      data: null,
+    })
+  }
+  // fetch the update list of enquiry
+  const enquiries = await Enquiry.find()
+  res.status(200).json({
+    message: 'Enquiry deleted',
+    result: enquiries.length,
+    data: enquiries,
   })
 })

@@ -1,5 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { fetchCards, fetchEnquiry, fetchDelete } from './DataService'
+import {
+  fetchCards,
+  fetchEnquiry,
+  fetchDeleteCard,
+  fetchDeleteEnquiry,
+} from './DataService'
 
 const DataContext = createContext()
 
@@ -8,8 +13,9 @@ export const DataProvider = ({ children }) => {
   const [cards, setCards] = useState([])
   const [enquiry, setEnquiry] = useState([])
   const [cardDeleteState, setCardDeleteState] = useState(false)
+  const [enquiryDeleteState, setEnquiryDeleteState] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [deleteId, setDeleteId] = useState(null)
+  // const [deleteId, setDeleteId] = useState(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +39,7 @@ export const DataProvider = ({ children }) => {
   const cardDelete = async (Id) => {
     console.log('In the card delete-05')
     try {
-      const deleteResult = await fetchDelete(Id)
+      const deleteResult = await fetchDeleteCard(Id)
       if (deleteResult) {
         console.log('deleteResult :', deleteResult)
         setCardDeleteState(true)
@@ -45,16 +51,34 @@ export const DataProvider = ({ children }) => {
     return cards
   }
 
+  const enquiryDelete = async (Id) => {
+    console.log('In the enquiry delete-05')
+    try {
+      const deleteResult = await fetchDeleteEnquiry(Id)
+      if (deleteResult) {
+        console.log('deleteResult :', deleteResult)
+        setEnquiryDeleteState(true)
+        setEnquiry(deleteResult)
+      }
+    } catch (error) {
+      console.log('Error deletion', error)
+    }
+    return enquiry
+  }
+
   return (
     <DataContext.Provider
       value={{
         cards,
         setCardDeleteState,
         cardDeleteState,
-        setDeleteId,
-        deleteId,
+        // setDeleteId,
+        // deleteId,
         cardDelete,
         enquiry,
+        enquiryDelete,
+        enquiryDeleteState,
+        setEnquiryDeleteState,
         isLoading,
       }}
     >

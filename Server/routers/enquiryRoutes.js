@@ -12,6 +12,6 @@ router
 router
   .route('/:id')
   .get(enquiryController.findAllEnquiry)
-  .post(enquiryController.deleteEnquiry)
+  .delete(enquiryController.deleteEnquiry)
 
 module.exports = router
