@@ -6,6 +6,7 @@ import SubscribeCard from '../HomeCompCont/SubscribeForm'
 
 import { SaaSButton } from '../ThemeCust'
 import EnquiryTemplate from './EnquiryTemplate'
+import CardTable from './Table/CardTable'
 
 function AdminPanel() {
   const navigate = useNavigate()
@@ -34,6 +35,7 @@ function AdminPanel() {
                 Create
               </SaaSButton>
             </Box>
+            <CardTable />
           </Card>
         </Grid>
         <Grid xs={1} />

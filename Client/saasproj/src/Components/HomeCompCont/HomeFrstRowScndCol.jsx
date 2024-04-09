@@ -1,20 +1,12 @@
-import {
-  Grid,
-  List,
-  ListItemText,
-  Tab,
-  Tabs,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material'
+import { Grid, List, ListItemText, Tab, Tabs } from '@mui/material'
 import { useData } from '../DataContext/DataContext'
 
 function HomeFrstRowScndCol() {
-  const theme = useTheme()
+  // const theme = useTheme()
   const { cards } = useData()
 
-  const isScreenMd = useMediaQuery(theme.breakpoints.down('md'))
-  const isScreenSM = useMediaQuery(theme.breakpoints.down('sm'))
+  // const isScreenMd = useMediaQuery(theme.breakpoints.down('md'))
+  // const isScreenSM = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <Grid

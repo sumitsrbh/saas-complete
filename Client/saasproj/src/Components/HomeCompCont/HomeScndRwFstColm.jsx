@@ -6,29 +6,34 @@ import {
 } from '@mui/material'
 import React from 'react'
 import { useData } from '../DataContext/DataContext'
-import { CardBuidler } from '../CardBuilder/CardBuilder'
+// import { CardBuidler } from '../CardBuilder/CardBuilder'
 import { CardBuidlerV2 } from '../CardBuilder/CardBuilderV2'
 
 function HomeScndRwFstColm() {
   const { cards } = useData()
+  let cardToDisplayIndex = ''
   if (cards.length === 0) {
     return <CircularProgress />
+  } else {
+    cardToDisplayIndex = cards.length
   }
 
   return (
     <Grid container marginTop={8}>
       <Grid container className="sndrw-first-row" spacing={2}>
         <Grid item md={6} sm={6} xs={12}>
-          <CardBuidlerV2
-            cardImgUrl={cards[4].imagelink}
-            cardHeader={cards[4].headertext}
-            cardText={cards[4].body}
-            cardBadge={cards[4].badge}
-            cardContentDisplay="row"
-            truncate={true}
-            truncateValue={150}
-            animation={true}
-          />
+          {cardToDisplayIndex >= 4 && (
+            <CardBuidlerV2
+              cardImgUrl={cards[4].imagelink}
+              cardHeader={cards[4].headertext}
+              cardText={cards[4].body}
+              cardBadge={cards[4].badge}
+              cardContentDisplay="row"
+              truncate={true}
+              truncateValue={150}
+              animation={true}
+            />
+          )}
         </Grid>
         <Grid item md={6} sm={6} xs={12}>
           <CardBuidlerV2
@@ -108,14 +113,16 @@ function HomeScndRwFstColm() {
           />
         </Grid>
         <Grid item md={6} sm={6} xs={12}>
-          <CardBuidlerV2
-            cardImgUrl={cards[11].imagelink}
-            cardHeader={cards[11].headertext}
-            cardText={cards[11].body}
-            cardBadge={cards[11].badge}
-            truncate={true}
-            truncateValue={150}
-          />
+          {cardToDisplayIndex >= 11 && (
+            <CardBuidlerV2
+              cardImgUrl={cards[11].imagelink}
+              cardHeader={cards[11].headertext}
+              cardText={cards[11].body}
+              cardBadge={cards[11].badge}
+              truncate={true}
+              truncateValue={150}
+            />
+          )}
         </Grid>
       </Grid>
     </Grid>

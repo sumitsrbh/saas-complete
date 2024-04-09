@@ -1,11 +1,7 @@
-import { AddBox } from '@mui/icons-material'
 import {
   Box,
-  Button,
   Card,
-  CardContent,
   CardHeader,
-  CardMedia,
   Grid,
   Paper,
   TextField,
@@ -33,7 +29,7 @@ const fontStyle = {
 function AboutUs() {
   return (
     <Paper elevation={0}>
-      <img src={aboutus} style={styledImg} />
+      <img src={aboutus} style={styledImg} alt="about-us" />
       <Grid container sx={{ padding: '80px 32px 32px 80px' }}>
         <Grid item xs={4}>
           <Typography
@@ -65,6 +61,7 @@ function AboutUs() {
               <img
                 src="https://assets-global.website-files.com/5f0a4c1cde4cddac7d2ad3b4/60f648f06e4ad586254082bd_android-chrome-512x512.png"
                 style={{ maxWidth: '65px', marginTop: '30px' }}
+                alt="aaset-global"
               />
             </Grid>
             <Grid item xs={6}>

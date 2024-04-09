@@ -1,12 +1,11 @@
-import { Alert, Chip, Paper, Switch, TextField } from '@mui/material'
-import AdminPanel from './AdminPanel'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Alert, Paper, TextField } from '@mui/material'
+
+import { useNavigate } from 'react-router-dom'
 
 import { useState } from 'react'
 import { SaaSButton } from '../ThemeCust'
 import { Login } from '@mui/icons-material'
 import axios from 'axios'
-import { useEffect } from 'react'
 import SubscribeCardAlike from '../HomeCompCont/SubscribeCard'
 
 const contanierStyle = {
@@ -23,10 +22,10 @@ const inputPropStyle = {
     fontWeight: '500',
   },
 }
-const logo = {
-  height: '40vmin',
-  pointerEvents: 'none',
-}
+// const logo = {
+//   height: '40vmin',
+//   pointerEvents: 'none',
+// }
 const inputStyle = {
   '& .MuiOutlinedInput-root': {
     '& fieldset': {

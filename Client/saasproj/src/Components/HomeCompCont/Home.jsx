@@ -18,9 +18,9 @@ import MorePost from '../MorePostFrmRdr/MorePost'
 
 function Home() {
   const theme = useTheme()
-  const isScreenLg = useMediaQuery(theme.breakpoints.down('lg'))
+  // const isScreenLg = useMediaQuery(theme.breakpoints.down('lg'))
   const isScreenMd = useMediaQuery(theme.breakpoints.down('md'))
-  const isScreenSm = useMediaQuery(theme.breakpoints.down('sm'))
+  // const isScreenSm = useMediaQuery(theme.breakpoints.down('sm'))
   return (
     <Paper
       className="main-container"

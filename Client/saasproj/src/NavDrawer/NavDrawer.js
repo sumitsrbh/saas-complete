@@ -20,9 +20,9 @@ import { Login } from '@mui/icons-material'
 function NavDrawer({ links }) {
   const theme = useTheme()
 
-  const isBelowLg = useMediaQuery(theme.breakpoints.down('lg'))
+  // const isBelowLg = useMediaQuery(theme.breakpoints.down('lg'))
   const isBelowMd = useMediaQuery(theme.breakpoints.down('md'))
-  const isBelowSm = useMediaQuery(theme.breakpoints.down('sm'))
+  // const isBelowSm = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <AppBar sx={StyleDropDownfrmAppbr}>

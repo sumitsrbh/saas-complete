@@ -77,7 +77,7 @@ function HomefirstRowFstColCard() {
   const imgObjHom = cards.slice(0, 3)
   // console.log('Array length', imgObjHom.length)
   const theme = useTheme()
-  const isScreenMd = useMediaQuery(theme.breakpoints.down('md'))
+  // const isScreenMd = useMediaQuery(theme.breakpoints.down('md'))
   const isScreenSm = useMediaQuery(theme.breakpoints.down('sm'))
 
   const handleHover = (index) => {

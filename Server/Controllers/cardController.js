@@ -47,8 +47,18 @@ exports.updateCard = catchAsync(async (req, res, next) => {
 
 exports.deleteCard = catchAsync(async (req, res, next) => {
   const card = await Card.findByIdAndDelete(req.params.id, req.body)
-  res.json(204).json({
+
+  if (!card) {
+    return res.status(404).json({
+      message: 'Card not found',
+      data: null,
+    })
+  }
+  // fetch the update list of cards
+  const cards = await Card.find()
+  res.status(200).json({
     message: 'Card deleted',
-    data: null,
+    result: cards.length,
+    data: cards,
   })
 })

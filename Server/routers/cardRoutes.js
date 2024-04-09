@@ -13,6 +13,6 @@ router
   .route('/:id')
   .get(cardController.getCard)
   .patch(cardController.updateCard)
-  .post(cardController.deleteCard)
+  .delete(cardController.deleteCard)
 
 module.exports = router
