@@ -2,8 +2,21 @@ const express = require('express')
 const Card = require('../models/cardModels')
 const catchAsync = require('../utils/catchAsync')
 
+const baseURL = 'http://127.0.0.1:8000/'
+
 exports.getAllCards = catchAsync(async (req, res, next) => {
-  const cards = await Card.find()
+  const resultCard = await Card.find()
+  const cards = resultCard.map((card) => {
+    return {
+      ...card.toObject(),
+      imagelink: baseURL + card.imagelink,
+    }
+  })
+
+  cards.forEach((card, index) => {
+    console.log(`Card ${index + 1} imagelink:`, card.imagelink)
+  })
+
   res.status(200).json({
     message: 'All listed card',
     result: cards.length,
@@ -12,6 +25,7 @@ exports.getAllCards = catchAsync(async (req, res, next) => {
     },
   })
 })
+
 exports.getCard = catchAsync(async (req, res, next) => {
   const cards = await Card.findById(req.params.id)
   res.status(200).json({
@@ -22,8 +36,33 @@ exports.getCard = catchAsync(async (req, res, next) => {
   })
 })
 
+// exports.createCard = catchAsync(async (req, res, next) => {
+//   const card = await Card.create(req.body)
+//   res.status(201).json({
+//     message: 'Card created',
+//     data: {
+//       card,
+//     },
+//   })
+// })
+
 exports.createCard = catchAsync(async (req, res, next) => {
-  const card = await Card.create(req.body)
+  // Extract the imagelink from the request body
+  const { badge, title, headertext, body, author, date } = req.body
+  const imagelink = req.file.path // Multer adds a 'file' property to the request object containing file information
+
+  console.log('cardController image link', imagelink)
+  // Create a new card with the provided data
+  const card = await Card.create({
+    badge,
+    title,
+    headertext,
+    imagelink,
+    body,
+    author,
+    date,
+  })
+
   res.status(201).json({
     message: 'Card created',
     data: {

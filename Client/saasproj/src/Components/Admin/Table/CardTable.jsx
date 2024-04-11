@@ -6,10 +6,9 @@ import EditIcon from '@mui/icons-material/Edit'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 
-let idToDelete = ''
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 60 },
-  { field: 'serverId', headerName: 'Server Id', width: 250 },
+  // { field: 'serverId', headerName: 'Server Id', hideable: true, width: 250 },
   { field: 'headerText', headerName: 'Header Text', width: 350 },
   { field: 'badges', headerName: 'Badges', width: 150 },
   { field: 'author', headerName: 'Author', width: 150 },

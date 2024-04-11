@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 60 },
-  { field: 'serverId', headerName: 'Server Id', width: 250 },
+  // { field: 'serverId', headerName: 'Server Id', width: 250 },
   {
     field: 'name',
     headerName: 'Name',

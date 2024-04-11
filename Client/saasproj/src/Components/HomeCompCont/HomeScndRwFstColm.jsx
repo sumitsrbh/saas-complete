@@ -16,11 +16,26 @@ function HomeScndRwFstColm() {
     return <CircularProgress />
   } else {
     cardToDisplayIndex = cards.length
+    cards.map((card, index) => {
+      console.log('card image link fetched ', card.imagelink)
+    })
   }
 
   return (
     <Grid container marginTop={8}>
       <Grid container className="sndrw-first-row" spacing={2}>
+        {/* {cards.slice(4, 12).map((card, index) => (
+        <Grid key={index} item md={6} sm={6} xs={12}>
+          <CardBuidlerV2
+            cardImgData={card.imagelink}
+            cardHeader={card.headertext}
+            cardText={card.body}
+            cardBadge={card.badge}
+            truncate={true}
+            truncateValue={150}
+          />
+        </Grid>
+      ))} */}
         <Grid item md={6} sm={6} xs={12}>
           {cardToDisplayIndex >= 4 && (
             <CardBuidlerV2

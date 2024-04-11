@@ -1,4 +1,4 @@
-import { Alert, Box, Paper, TextField } from '@mui/material'
+import { Alert, Box, Paper, Snackbar, TextField } from '@mui/material'
 import axios from 'axios'
 import { useState } from 'react'
 import { SaaSButton } from '../ThemeCust'
@@ -37,6 +37,7 @@ const inputPropStyle = {
 function SubscribeForm() {
   const [input, setInputs] = useState(initialValues)
   const [enquiryCreated, setEnquiryCreated] = useState(false)
+  const [snackbarKey, setSnackbarKey] = useState(0)
 
   const handleChange = (e) => {
     setInputs((prevState) => ({
@@ -57,16 +58,22 @@ function SubscribeForm() {
       setInputs((e) => {
         input.response = response
       })
-      setEnquiryCreated(true)
-      console.log('server response-input:', input.response)
+
+      console.log('server response-input:', input.response.data.message)
+      if (input.response.data.message === 'success') {
+        setInputs(initialValues)
+        setSnackbarKey((prevKey) => prevKey + 1)
+        setEnquiryCreated(true)
+      }
     } catch (err) {
       console.error('Error submitting enquiry:', err)
     }
-    setInputs(initialValues)
+    // setInputs(initialValues)
   }
-  // const buttonClickHandler = (e) => {
-  //   setInputs(initialValues)
-  // }
+
+  const handleSnackbarClose = () => {
+    setEnquiryCreated(false)
+  }
 
   return (
     <Paper
@@ -142,23 +149,34 @@ function SubscribeForm() {
             InputProps={inputPropStyle}
             onChange={handleChange}
           />
-          <SaaSButton
-            type="submit"
-            onSubmit={formSubmitHandler}
-            // onClick={buttonClickHandler}
-            sx={{
-              borderRadius: '10px',
-              textTransform: 'none',
-              fontWeight: 700,
-              padding: '12px 24px',
-              marginBottom: '20px',
-            }}
-          >
-            Submit
-          </SaaSButton>
+          {enquiryCreated && (
+            <Snackbar
+              key={snackbarKey}
+              open={enquiryCreated}
+              autoHideDuration={2000}
+              onClose={handleSnackbarClose}
+              message="Enquiry Created"
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            />
+          )}
+          {!enquiryCreated && (
+            <SaaSButton
+              type="submit"
+              onSubmit={formSubmitHandler}
+              // onClick={buttonClickHandler}
+              sx={{
+                borderRadius: '10px',
+                textTransform: 'none',
+                fontWeight: 700,
+                padding: '12px 24px',
+                marginBottom: '20px',
+              }}
+            >
+              Submit
+            </SaaSButton>
+          )}
         </Box>
       </form>
-      <Alert severity="success">Enquiry Created</Alert>
     </Paper>
   )
 }

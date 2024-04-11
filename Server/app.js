@@ -14,6 +14,9 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json())
 app.use(cors())
 
+// Serve static files from the 'uploads' directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+
 //middleware
 app.use((req, res, next) => {
   // req.requestTime = new Data().toISOString()
