@@ -7,6 +7,8 @@ import PreviewIcon from '@mui/icons-material/Preview'
 import { useEffect, useState } from 'react'
 import { formatDate } from '../../CardBuilder/DateFormat'
 import { CardBuidlerV2 } from '../../CardBuilder/CardBuilderV2'
+import { DeleteButton } from './DeleteButton'
+import { Preview } from './PreviewButton'
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 60 },
@@ -37,13 +39,21 @@ const columns: GridColDef[] = [
       />
     ),
   },
+  {
+    field: 'preview',
+    headerName: 'Preview',
+    width: 70,
+    renderCell: (params) => {
+      return <Preview previewValue={params.row} />
+    },
+  },
 
   {
     field: 'edit',
     headerName: 'Edit',
     width: 70,
     renderCell: (params) => {
-      return <EditIcon />
+      return <Edit editValue={params.row} />
     },
   },
 
@@ -54,33 +64,26 @@ const columns: GridColDef[] = [
     renderCell: (params) => <DeleteButton id={params.row.serverId} />,
   },
 ]
-
-function DeleteButton({ id }) {
-  const { cardDelete, cardDeleteState, setCardDeleteState } = useData()
-
-  // console.log('In Card Table, Deleted id passed renderCell:', id)
-
-  const handleDelete = async () => {
+function Edit({ editValue }) {
+  const handleEdit = async () => {
     if (id !== 'null') {
       await cardDelete(id)
-      // console.log('afterDeleteCard', afterDeleteCard)
     }
   }
-
   return (
     <>
-      <DeleteIcon onClick={handleDelete} />
+      <EditIcon onClick={handleEdit} />
       {cardDeleteState && <Alert severity="success"> Card Deleted.</Alert>}
       {setCardDeleteState(false)}
     </>
   )
 }
+}
 
 function CardTable() {
   const { cards, isLoading } = useData()
   const [rows, setRows] = useState([])
-  const [previewValue, setPreviewvalue] = useState(null)
-  const [previewOpen, setPreviewOpen] = useState(false)
+
   useEffect(() => {
     setRows(
       cards.map((card, index) => ({
@@ -95,44 +98,14 @@ function CardTable() {
       }))
     )
   }, [cards])
-  const handleRowClick = (e) => {
-    console.log('value of e', e.row)
-    setPreviewOpen(!previewOpen)
-    setPreviewvalue(e.row)
-  }
-  const closeModal = () => {
-    setPreviewOpen(!previewOpen)
-  }
-
   return (
     <Paper sx={{ height: '400px', width: 'auto' }}>
       <DataGrid
         loading={isLoading}
         rows={rows}
         columns={columns}
-        onRowClick={handleRowClick}
+        // onRowClick={handleRowClick}
       />
-      {previewOpen && (
-        <Modal
-          open={previewOpen}
-          sx={{
-            paddingLeft: '400px',
-            paddingRight: '400px',
-            paddingTop: '100px',
-          }}
-          onClose={closeModal}
-        >
-          <CardBuidlerV2
-            cardHeader={previewValue.headerText}
-            cardImgUrl={previewValue.image}
-            cardBadge={previewValue.badges}
-            cardDate={previewValue.date}
-            cardText={previewValue.body}
-            truncate={false}
-            animation={false}
-          />
-        </Modal>
-      )}
     </Paper>
   )
 }
