@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const cardSchema = new mongoose.Schema({
   badge: {
     type: String,
-    required: [true, 'Please write the header'],
+    required: [false, 'Please write the badge'],
   },
   imagelink: {
     type: String,

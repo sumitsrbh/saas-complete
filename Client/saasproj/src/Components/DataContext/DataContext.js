@@ -4,9 +4,15 @@ import {
   fetchEnquiry,
   fetchDeleteCard,
   fetchDeleteEnquiry,
+  formLogin,
 } from './DataService'
 
 const DataContext = createContext()
+
+const initialValues = {
+  email: '',
+  password: '',
+}
 
 export const useData = () => useContext(DataContext)
 export const DataProvider = ({ children }) => {
@@ -15,6 +21,10 @@ export const DataProvider = ({ children }) => {
   const [cardDeleteState, setCardDeleteState] = useState(false)
   const [enquiryDeleteState, setEnquiryDeleteState] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [logged, setLoggedIn] = useState({ state: false, token: 0 })
+  const [loginError, setLoginError] = useState(null)
+  const [input, setInputs] = useState(initialValues)
+  const [loginCredentials, setLoginCredentials] = useState(initialValues)
   // const [deleteId, setDeleteId] = useState(null)
 
   useEffect(() => {
@@ -66,6 +76,21 @@ export const DataProvider = ({ children }) => {
     return enquiry
   }
 
+  const formSubmitHandler = async (email, password) => {
+    try {
+      const loginResult = await formLogin(email, password)
+      if (loginResult.status === 200) {
+        setLoggedIn(
+          (logged.state = true),
+          (logged.token = loginResult.data.token)
+        )
+      }
+    } catch (err) {
+      console.log(err)
+      setLoginError(err.response.data.message || 'Wrong credentials.')
+    }
+  }
+
   return (
     <DataContext.Provider
       value={{
@@ -80,6 +105,12 @@ export const DataProvider = ({ children }) => {
         enquiryDeleteState,
         setEnquiryDeleteState,
         isLoading,
+        formSubmitHandler,
+        logged,
+        setLoggedIn,
+        loginError,
+        input,
+        setInputs,
       }}
     >
       {children}

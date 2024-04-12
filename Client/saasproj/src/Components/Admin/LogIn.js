@@ -5,8 +5,11 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { SaaSButton } from '../ThemeCust'
 import { Login } from '@mui/icons-material'
+import LogoutIcon from '@mui/icons-material/Logout'
+
 import axios from 'axios'
 import SubscribeCardAlike from '../HomeCompCont/SubscribeCard'
+import { useData } from '../DataContext/DataContext'
 
 const contanierStyle = {
   textAlign: 'center',
@@ -47,8 +50,9 @@ const initialValues = {
 }
 
 function LogIn() {
-  const [input, setInputs] = useState(initialValues)
-  const [logged, setLoggedIn] = useState({ state: false, token: 0 })
+  const { logged, setLoggedIn, input, setInputs } = useData()
+  // const [input, setInputs] = useState(initialValues)
+  // const [logged, setLoggedIn] = useState({ state: false, token: 0 })
   const [error, setError] = useState(null)
   const navigate = useNavigate()
 
@@ -108,11 +112,17 @@ function LogIn() {
               InputProps={inputPropStyle}
               onChange={handleChange}
             />
-
-            <SaaSButton sx={{ marginTop: '20px' }} type="submit">
-              <Login />
-              Login
-            </SaaSButton>
+            {logged ? (
+              <SaaSButton sx={{ marginTop: '20px' }} type="submit">
+                <Login />
+                Login
+              </SaaSButton>
+            ) : (
+              <SaaSButton sx={{ marginTop: '20px' }} type="submit">
+                <LogoutIcon />
+                Logout
+              </SaaSButton>
+            )}
           </form>
         </div>
       </Paper>

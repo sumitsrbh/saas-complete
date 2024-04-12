@@ -1,10 +1,12 @@
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
-import { Alert, Box, Paper } from '@mui/material'
+import { DataGrid, GridColDef } from '@mui/x-data-grid'
+import { Alert, Backdrop, Modal, Paper } from '@mui/material'
 import { useData } from '../../DataContext/DataContext'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-import axios from 'axios'
+import PreviewIcon from '@mui/icons-material/Preview'
 import { useEffect, useState } from 'react'
+import { formatDate } from '../../CardBuilder/DateFormat'
+import { CardBuidlerV2 } from '../../CardBuilder/CardBuilderV2'
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 60 },
@@ -12,8 +14,30 @@ const columns: GridColDef[] = [
   { field: 'headerText', headerName: 'Header Text', width: 350 },
   { field: 'badges', headerName: 'Badges', width: 150 },
   { field: 'author', headerName: 'Author', width: 150 },
-  { field: 'date', headerName: 'Date', width: 150 },
-  { field: 'image', headerName: 'Image', width: 150 },
+  {
+    field: 'date',
+    headerName: 'Date',
+    width: 150,
+    renderCell: (params) => <>{formatDate(params.row.date)}</>,
+  },
+  {
+    field: 'image',
+    headerName: 'Image',
+    width: 150,
+    renderCell: (params) => (
+      <img
+        alt="cards-preview"
+        src={params.row.image}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          padding: '1px',
+        }}
+      />
+    ),
+  },
+
   {
     field: 'edit',
     headerName: 'Edit',
@@ -22,6 +46,7 @@ const columns: GridColDef[] = [
       return <EditIcon />
     },
   },
+
   {
     field: 'delete',
     headerName: 'Delete',
@@ -54,6 +79,8 @@ function DeleteButton({ id }) {
 function CardTable() {
   const { cards, isLoading } = useData()
   const [rows, setRows] = useState([])
+  const [previewValue, setPreviewvalue] = useState(null)
+  const [previewOpen, setPreviewOpen] = useState(false)
   useEffect(() => {
     setRows(
       cards.map((card, index) => ({
@@ -64,9 +91,18 @@ function CardTable() {
         author: card.author,
         date: card.date,
         image: card.imagelink,
+        body: card.body,
       }))
     )
   }, [cards])
+  const handleRowClick = (e) => {
+    console.log('value of e', e.row)
+    setPreviewOpen(!previewOpen)
+    setPreviewvalue(e.row)
+  }
+  const closeModal = () => {
+    setPreviewOpen(!previewOpen)
+  }
 
   return (
     <Paper sx={{ height: '400px', width: 'auto' }}>
@@ -74,8 +110,29 @@ function CardTable() {
         loading={isLoading}
         rows={rows}
         columns={columns}
-        // onRowClick={handleRowClick}
+        onRowClick={handleRowClick}
       />
+      {previewOpen && (
+        <Modal
+          open={previewOpen}
+          sx={{
+            paddingLeft: '400px',
+            paddingRight: '400px',
+            paddingTop: '100px',
+          }}
+          onClose={closeModal}
+        >
+          <CardBuidlerV2
+            cardHeader={previewValue.headerText}
+            cardImgUrl={previewValue.image}
+            cardBadge={previewValue.badges}
+            cardDate={previewValue.date}
+            cardText={previewValue.body}
+            truncate={false}
+            animation={false}
+          />
+        </Modal>
+      )}
     </Paper>
   )
 }

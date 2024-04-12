@@ -6,6 +6,7 @@ function SubscribeCard({ header }) {
       sx={{
         backgroundColor: '#262320',
       }}
+      square={true}
     >
       <Grid container>
         <Grid item xs={2}></Grid>

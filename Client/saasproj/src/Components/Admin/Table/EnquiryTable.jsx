@@ -1,9 +1,32 @@
-import { Alert, Box, Paper, Typography } from '@mui/material'
+import {
+  Alert,
+  Box,
+  Card,
+  CardContent,
+  CardHeader,
+  Modal,
+  Paper,
+  Typography,
+} from '@mui/material'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useData } from '../../DataContext/DataContext'
 import { SaaSButton } from '../../ThemeCust'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useEffect, useState } from 'react'
+import { CardBuidlerV2 } from '../../CardBuilder/CardBuilderV2'
+import { CardBuidler } from '../../CardBuilder/CardBuilder'
+import SubscribeCardAlike from '../../HomeCompCont/SubscribeCard'
+import SubscribeCard from '../../HomeCompCont/SubscribeForm'
+
+const typoStyle = {
+  color: '#ffd400',
+  // textAlign: 'center',
+  fontSize: '16px',
+  lineHeight: '26px',
+  marginLeft: '5px',
+  // letterSpacing: '-0.06em',
+  fontWeight: '700',
+}
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 60 },
@@ -64,6 +87,8 @@ function DeleteButton({ id }) {
 function EnquiryTable() {
   const { enquiry, isLoading } = useData()
   const [rows, setRows] = useState([])
+  const [previewValue, setPreviewvalue] = useState(null)
+  const [previewOpen, setPreviewOpen] = useState(false)
   useEffect(() => {
     setRows(
       enquiry.map((enq, index) => ({
@@ -77,9 +102,53 @@ function EnquiryTable() {
     )
   }, [enquiry])
 
+  const handleRowClick = (e) => {
+    console.log('value of e', e.row)
+    setPreviewOpen(!previewOpen)
+    setPreviewvalue(e.row)
+  }
+  const closeModal = () => {
+    setPreviewOpen(!previewOpen)
+  }
+
   return (
     <Paper sx={{ height: '400px', width: '100%' }}>
-      <DataGrid loading={isLoading} rows={rows} columns={columns} />
+      <DataGrid
+        loading={isLoading}
+        rows={rows}
+        columns={columns}
+        onRowClick={handleRowClick}
+      />
+      {previewOpen && (
+        <Modal
+          open={previewOpen}
+          sx={{
+            paddingLeft: '400px',
+            paddingRight: '400px',
+            paddingTop: '100px',
+          }}
+          onClose={closeModal}
+        >
+          <Card>
+            <CardContent>
+              <SubscribeCard header={previewValue.subject} />
+              <Box
+                sx={{
+                  backgroundColor: '#262320',
+                }}
+              >
+                <Typography sx={typoStyle}>Name:{previewValue.name}</Typography>
+                <Typography sx={typoStyle}>
+                  Email:{previewValue.email}
+                </Typography>
+                <Typography sx={typoStyle}>
+                  Body:{previewValue.message}
+                </Typography>
+              </Box>
+            </CardContent>
+          </Card>
+        </Modal>
+      )}
     </Paper>
   )
 }

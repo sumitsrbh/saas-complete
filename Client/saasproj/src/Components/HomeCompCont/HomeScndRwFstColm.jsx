@@ -41,6 +41,7 @@ function HomeScndRwFstColm() {
             <CardBuidlerV2
               cardImgUrl={cards[4].imagelink}
               cardHeader={cards[4].headertext}
+              cardDate={cards[4].date}
               cardText={cards[4].body}
               cardBadge={cards[4].badge}
               cardContentDisplay="row"
@@ -54,6 +55,7 @@ function HomeScndRwFstColm() {
           <CardBuidlerV2
             cardImgUrl={cards[5].imagelink}
             cardHeader={cards[5].headertext}
+            cardDate={cards[5].date}
             cardText={cards[5].body}
             cardBadge={cards[5].badge}
             truncate={true}
@@ -67,6 +69,7 @@ function HomeScndRwFstColm() {
           <CardBuidlerV2
             cardImgUrl={cards[6].imagelink}
             cardHeader={cards[6].headertext}
+            cardDate={cards[6].date}
             cardText={cards[6].body}
             cardBadge={cards[6].badge}
             truncate={true}
@@ -77,6 +80,7 @@ function HomeScndRwFstColm() {
           <CardBuidlerV2
             cardImgUrl={cards[7].imagelink}
             cardHeader={cards[7].headertext}
+            cardDate={cards[7].date}
             cardText={cards[7].body}
             cardBadge={cards[7].badge}
             truncate={true}
@@ -99,6 +103,7 @@ function HomeScndRwFstColm() {
           <CardBuidlerV2
             cardImgUrl={cards[8].imagelink}
             cardHeader={cards[8].headertext}
+            cardDate={cards[8].date}
             cardText={cards[8].body}
             cardBadge={cards[8].badge}
             truncate={true}
@@ -109,6 +114,7 @@ function HomeScndRwFstColm() {
           <CardBuidlerV2
             cardImgUrl={cards[9].imagelink}
             cardHeader={cards[9].headertext}
+            cardDate={cards[9].date}
             cardText={cards[9].body}
             cardBadge={cards[9].badge}
             truncate={true}
@@ -121,6 +127,7 @@ function HomeScndRwFstColm() {
           <CardBuidlerV2
             cardImgUrl={cards[10].imagelink}
             cardHeader={cards[10].headertext}
+            cardDate={cards[10].date}
             cardText={cards[10].body}
             cardBadge={cards[10].badge}
             truncate={true}
@@ -132,6 +139,7 @@ function HomeScndRwFstColm() {
             <CardBuidlerV2
               cardImgUrl={cards[11].imagelink}
               cardHeader={cards[11].headertext}
+              cardDate={cards[11].date}
               cardText={cards[11].body}
               cardBadge={cards[11].badge}
               truncate={true}

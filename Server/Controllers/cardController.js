@@ -9,7 +9,8 @@ exports.getAllCards = catchAsync(async (req, res, next) => {
   const cards = resultCard.map((card) => {
     return {
       ...card.toObject(),
-      imagelink: baseURL + card.imagelink,
+      // imagelink: baseURL + card.imagelink,
+      imagelink: baseURL + card.imagelink.replace(/\\/g, '/'),
     }
   })
 
@@ -60,7 +61,7 @@ exports.createCard = catchAsync(async (req, res, next) => {
     imagelink,
     body,
     author,
-    date,
+    date: req.customDate,
   })
 
   res.status(201).json({

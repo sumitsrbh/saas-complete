@@ -64,3 +64,19 @@ export const fetchDeleteEnquiry = async (id) => {
     throw error
   }
 }
+
+export const formLogin = async (email,password) => {
+  try {
+    const response = await axios.post(
+      'http://127.0.0.1:8000/api/users/login',
+      {
+        email,
+        password
+      }
+    )
+   return response
+  } catch (err) {
+    console.log(err)
+    return err
+  }
+}

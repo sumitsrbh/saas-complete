@@ -14,6 +14,11 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json())
 app.use(cors())
 
+app.use('/api/cards', (req, res, next) => {
+  // Attach the current date to the request object
+  req.customDate = new Date()
+  next()
+})
 // Serve static files from the 'uploads' directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 

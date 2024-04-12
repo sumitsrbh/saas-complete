@@ -10,6 +10,8 @@ import Footer from './Components/Footer/Footer'
 import NavDrawer from './NavDrawer/NavDrawer'
 import { DataProvider } from './Components/DataContext/DataContext'
 import AdminPanelV2 from './Components/Admin/AdminPanelV2'
+import CardTable from './Components/Admin/Table/CardTable'
+import EnquiryTable from './Components/Admin/Table/EnquiryTable'
 
 const Home = lazy(() => import('./Components/HomeCompCont/Home'))
 const AboutUs = lazy(() => import('./Components/AboutUsCont/AboutUs'))

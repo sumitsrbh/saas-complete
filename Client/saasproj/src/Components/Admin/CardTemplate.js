@@ -1,4 +1,11 @@
-import { Alert, AlertTitle, Box, Paper, TextField } from '@mui/material'
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Paper,
+  Snackbar,
+  TextField,
+} from '@mui/material'
 import axios from 'axios'
 import { useState } from 'react'
 import SubscribeCardAlike from '../HomeCompCont/SubscribeCard'
@@ -42,12 +49,13 @@ function CardTemplate() {
   const [input, setInputs] = useState(initialValues)
   const [error, setErr] = useState(false)
   const [resStatus, setResponseStatus] = useState()
-
+  const [cardCreated, setCardCreated] = useState(false)
+  const [snackbarKey, setSnackbarKey] = useState(0)
   const handleChange = (e) => {
     const { name, value, files } = e.target
 
     if (name === 'imagelink' && files.length > 0) {
-      console.log('imagelink: ', name, '/n', 'files: ', files)
+      // console.log('imagelink: ', name, '/n', 'files: ', files)
       // Access the first file from the FileList
 
       const selectedFile = files[0]
@@ -90,9 +98,11 @@ function CardTemplate() {
         //   imagelink: input.imagelink,
         // }
       )
-
-      if (response.data.message === 'success') {
+      console.log('response.data.message ', response.data.message)
+      if (response.data.message === 'Card created') {
         setInputs(initialValues)
+        setCardCreated(true)
+        setSnackbarKey((prevKey) => prevKey + 1)
       }
     } catch (err) {
       console.error(
@@ -106,13 +116,13 @@ function CardTemplate() {
         ${err.response.statusText}`)
     }
   }
-  // const buttonClickHandler = () => {
-  //   if (error) {
-  //     setErr(false)
-  //     setResponseStatus('')
-  //   }
-  // }
-
+  const handleSnackbarClose = () => {
+    setCardCreated(false)
+  }
+  const errorHandle = () => {
+    setErr(false)
+  }
+  console.log('card created-', cardCreated, '')
   return (
     <Box
       sx={{
@@ -127,7 +137,7 @@ function CardTemplate() {
         sx={{
           backgroundColor: '#262320',
           padding: '30px',
-          marginTop: '60px',
+          // marginTop: '60px',
         }}
       >
         <form onSubmit={formSubmitHandler}>
@@ -228,12 +238,22 @@ function CardTemplate() {
             InputProps={inputPropStyle}
             onChange={handleChange}
           />
+          <Snackbar
+            key={snackbarKey}
+            open={cardCreated}
+            autoHideDuration={2000}
+            onClose={handleSnackbarClose}
+            message="Card Created"
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            sx={{ backgroundColor: '#dde03d' }}
+          />
           {error && (
-            <Alert severity="error">
+            <Alert severity="error" onClose={errorHandle}>
               <AlertTitle>Error</AlertTitle>
               {resStatus}
             </Alert>
           )}
+
           <SaaSButton
             type="submit"
             onSubmit={formSubmitHandler}

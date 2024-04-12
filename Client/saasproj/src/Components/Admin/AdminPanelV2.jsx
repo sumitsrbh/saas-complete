@@ -1,36 +1,102 @@
-import { Box, Drawer, Paper } from '@mui/material'
+import {
+  Alert,
+  Box,
+  Card,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  Paper,
+} from '@mui/material'
 import CardTable from './Table/CardTable'
 import SubscribeCardAlike from '../HomeCompCont/SubscribeCard'
 import EnquiryTable from './Table/EnquiryTable'
 import { SaaSButton } from '../ThemeCust'
 
 import { useNavigate } from 'react-router-dom'
+import { useData } from '../DataContext/DataContext'
+import { useState } from 'react'
+import CardTemplate from './CardTemplate'
 
 function AdminPanelV2() {
   const navigate = useNavigate()
-  const callCardTemplate = () => {
-    navigate('/card-template')
+  const { logged } = useData()
+  const [selectedTab, setSelectedTab] = useState('Cards')
+  const [cardTable, setCardTable] = useState(false)
+  const [enquiryTable, setEnquiryTable] = useState(false)
+
+  const handleTabClick = (tab) => {
+    setSelectedTab(tab)
+    if (tab === 'Cards') {
+      setCardTable(true)
+      setEnquiryTable(false)
+      // navigate('/cards-table')
+    } else if (tab === 'Enquiry') {
+      // Navigate to the Enquiry table
+      setEnquiryTable(true)
+      setCardTable(false)
+      // navigate('/enquiry-table')
+    } else if (tab === 'Card Create') {
+      setEnquiryTable(false)
+      setCardTable(false)
+    }
   }
+
   return (
-    <Paper
-      elevation={0}
-      sx={{ backgroundColor: '#262320', padding: '100px', marginTop: '80px' }}
+    <Box
+      sx={{
+        backgroundColor: '#262320',
+        marginTop: '80px',
+        display: 'flex',
+      }}
     >
-      <Paper>
-        <SubscribeCardAlike header="SaaSJouranl List" formOn={false} />
-        <Box sx={{ backgroundColor: '#262320' }}>
-          <SaaSButton sx={{ marginBottom: '30px' }} onClick={callCardTemplate}>
-            Create Card
-          </SaaSButton>
-        </Box>
+      {' '}
+      {logged ? (
+        <>
+          <Paper
+            elevation={10}
+            sx={{
+              backgroundColor: '#262320',
+              width: '150px',
+              marginRight: '10px',
+              borderRadius: '2px',
+              // borderStyle: 'solid',
+              // borderWidth: '1px',
+              // borderLeftWidth: 0,
+              // borderBottomWidth: 0,
+              // borderColor: '#ffd340',
+            }}
+          >
+            <List>
+              {['Cards', 'Enquiry', 'Card Create'].map((text) => (
+                <ListItem key={text}>
+                  <ListItemButton
+                    sx={{
+                      color: '#ffd400',
+                      '&:hover': {
+                        textDecoration: 'underline',
+                      },
+                    }}
+                    selected={selectedTab === text}
+                    onClick={() => handleTabClick(text)}
+                  >
+                    {text}
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Paper>
 
-        <CardTable />
-
-        <SubscribeCardAlike header="Enquiry List" formOn={false} />
-
-        <EnquiryTable />
-      </Paper>
-    </Paper>
+          <Box sx={{ flexGrow: 1 }}>
+            {!cardTable && !enquiryTable && <CardTemplate />}
+            {cardTable && <CardTable />}
+            {enquiryTable && <EnquiryTable />}
+          </Box>
+        </>
+      ) : (
+        <Alert severity="warning">Please login</Alert>
+      )}
+    </Box>
   )
 }
 
