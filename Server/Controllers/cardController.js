@@ -29,6 +29,7 @@ exports.getAllCards = catchAsync(async (req, res, next) => {
 
 exports.getCard = catchAsync(async (req, res, next) => {
   const cards = await Card.findById(req.params.id)
+  console.log('get card response ', cards)
   res.status(200).json({
     message: 'Card found',
     data: {
@@ -77,11 +78,11 @@ exports.updateCard = catchAsync(async (req, res, next) => {
     new: true,
     runValidators: true,
   })
+  const cards = await Card.find()
   res.status(200).json({
     message: 'Card updated',
-    data: {
-      card,
-    },
+    result: cards.length,
+    data: cards,
   })
 })
 

@@ -9,6 +9,7 @@ import { formatDate } from '../../CardBuilder/DateFormat'
 import { CardBuidlerV2 } from '../../CardBuilder/CardBuilderV2'
 import { DeleteButton } from './DeleteButton'
 import { Preview } from './PreviewButton'
+import { EditButton } from './EditButton'
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 60 },
@@ -53,7 +54,7 @@ const columns: GridColDef[] = [
     headerName: 'Edit',
     width: 70,
     renderCell: (params) => {
-      return <Edit editValue={params.row} />
+      return <EditButton id={params.row.serverId} />
     },
   },
 
@@ -64,21 +65,6 @@ const columns: GridColDef[] = [
     renderCell: (params) => <DeleteButton id={params.row.serverId} />,
   },
 ]
-function Edit({ editValue }) {
-  const handleEdit = async () => {
-    if (id !== 'null') {
-      await cardDelete(id)
-    }
-  }
-  return (
-    <>
-      <EditIcon onClick={handleEdit} />
-      {cardDeleteState && <Alert severity="success"> Card Deleted.</Alert>}
-      {setCardDeleteState(false)}
-    </>
-  )
-}
-}
 
 function CardTable() {
   const { cards, isLoading } = useData()

@@ -1,39 +1,21 @@
+import { Alert, Modal } from '@mui/material'
+import { useData } from '../../DataContext/DataContext'
 import EditIcon from '@mui/icons-material/Edit'
-
 import { useState } from 'react'
-import PreviewIcon from '@mui/icons-material/Preview'
-import { Modal } from '@mui/material'
-import { CardBuidlerV2 } from '../../CardBuilder/CardBuilderV2'
 
-export function Preview({ previewValue }) {
+export function EditButton({ id }) {
+  const { cardGet, cardEditState, setCardEditValue } = useData()
   const [modelOpen, setModalOpen] = useState(false)
 
-  // console.log('Preview value on view,previewValue', previewValue)
-  const closeModal = () => {
-    setModalOpen(!modelOpen)
+  const handleEdit = async () => {
+    if (id !== 'null') {
+      console.log('editButton values', id)
+      const response = await cardGet(id)
+      if (response) {
+        console.log('In EditButton, repose fro cardget', response.cards)
+      }
+    }
   }
-  return (
-    <>
-      <PreviewIcon onClick={() => setModalOpen(true)} />
-      <Modal
-        open={modelOpen}
-        sx={{
-          paddingLeft: '400px',
-          paddingRight: '400px',
-          paddingTop: '100px',
-        }}
-        onClose={closeModal}
-      >
-        <CardBuidlerV2
-          cardHeader={previewValue.headerText}
-          cardImgUrl={previewValue.image}
-          cardBadge={previewValue.badges}
-          cardDate={previewValue.date}
-          cardText={previewValue.body}
-          truncate={false}
-          animation={false}
-        />
-      </Modal>
-    </>
-  )
+
+  return <EditIcon onClick={handleEdit} />
 }

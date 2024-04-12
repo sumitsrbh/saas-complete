@@ -17,10 +17,12 @@ import { useNavigate } from 'react-router-dom'
 import { useData } from '../DataContext/DataContext'
 import { useState } from 'react'
 import CardTemplate from './CardTemplate'
+import EditTemplate from './Table/EditTemplate'
+import CardEditForm from './Table/CardEditForm'
 
 function AdminPanelV2() {
   const navigate = useNavigate()
-  const { logged } = useData()
+  const { logged, cardEditState, cardEditValue } = useData()
   const [selectedTab, setSelectedTab] = useState('Cards')
   const [cardTable, setCardTable] = useState(false)
   const [enquiryTable, setEnquiryTable] = useState(false)
@@ -41,6 +43,7 @@ function AdminPanelV2() {
       setCardTable(false)
     }
   }
+  console.log('In admin panel cardEditState', cardEditState)
 
   return (
     <Box
@@ -88,9 +91,10 @@ function AdminPanelV2() {
           </Paper>
 
           <Box sx={{ flexGrow: 1 }}>
-            {!cardTable && !enquiryTable && <CardTemplate />}
-            {cardTable && <CardTable />}
-            {enquiryTable && <EnquiryTable />}
+            {!cardTable && !enquiryTable && !cardEditState && <CardTemplate />}
+            {cardTable && !cardEditState && <CardTable />}
+            {enquiryTable && !cardEditState && <EnquiryTable />}
+            {cardEditState && <CardEditForm />}
           </Box>
         </>
       ) : (

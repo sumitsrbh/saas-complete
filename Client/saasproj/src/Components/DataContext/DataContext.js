@@ -5,6 +5,8 @@ import {
   fetchDeleteCard,
   fetchDeleteEnquiry,
   formLogin,
+  fetchUpdateCard,
+  fetchGetCard,
 } from './DataService'
 
 const DataContext = createContext()
@@ -17,6 +19,8 @@ const initialValues = {
 export const useData = () => useContext(DataContext)
 export const DataProvider = ({ children }) => {
   const [cards, setCards] = useState([])
+  const [cardEditState, setCardEditState] = useState(false)
+  const [cardEditValue, setCardEditValue] = useState()
   const [enquiry, setEnquiry] = useState([])
   const [cardDeleteState, setCardDeleteState] = useState(false)
   const [enquiryDeleteState, setEnquiryDeleteState] = useState(false)
@@ -54,11 +58,39 @@ export const DataProvider = ({ children }) => {
         console.log('deleteResult :', deleteResult)
         setCardDeleteState(true)
         setCards(deleteResult)
+        return cards
       }
     } catch (error) {
       console.log('Error deletion', error)
     }
-    return cards
+  }
+  const cardUpdate = async ({ id, editValues }) => {
+    console.log('In the card update')
+    try {
+      const updateResult = await fetchUpdateCard({ id, editValues })
+      if (updateResult) {
+        console.log('updateResult :', updateResult)
+        setCardEditState(true)
+        setCards(updateResult)
+        return updateResult
+      }
+    } catch (error) {
+      console.log('Error deletion', error)
+    }
+  }
+
+  const cardGet = async (id) => {
+    console.log('In the card update')
+    try {
+      const getResult = await fetchGetCard(id)
+      if (getResult) {
+        console.log('updateResult :', getResult.cards)
+        setCardEditValue(getResult.cards)
+        setCardEditState(true)
+      }
+    } catch (error) {
+      console.log('Error Card get', error)
+    }
   }
 
   const enquiryDelete = async (Id) => {
@@ -69,11 +101,11 @@ export const DataProvider = ({ children }) => {
         console.log('deleteResult :', deleteResult)
         setEnquiryDeleteState(true)
         setEnquiry(deleteResult)
+        return enquiry
       }
     } catch (error) {
       console.log('Error deletion', error)
     }
-    return enquiry
   }
 
   const formSubmitHandler = async (email, password) => {
@@ -100,11 +132,18 @@ export const DataProvider = ({ children }) => {
         // setDeleteId,
         // deleteId,
         cardDelete,
+        cardUpdate,
+        cardEditValue,
+        cardEditState,
+        setCardEditState,
+        setCardEditValue,
+        cardGet,
         enquiry,
         enquiryDelete,
         enquiryDeleteState,
         setEnquiryDeleteState,
         isLoading,
+
         formSubmitHandler,
         logged,
         setLoggedIn,

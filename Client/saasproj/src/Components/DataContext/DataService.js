@@ -45,6 +45,47 @@ export const fetchDeleteCard = async (id) => {
     throw error
   }
 }
+export const fetchUpdateCard = async ({ id, editValues }) => {
+  try {
+    const response = await axios.patch(
+      `http://127.0.0.1:8000/api/cards/${id}`,
+      editValues
+    )
+    console.log('response after update', response)
+    const cardsData = response && response.data.data
+    const reversedCardsData = cardsData.reverse()
+    console.log('response after update: ', response.data.message)
+    if (response.data.message === 'Card updated') {
+      return reversedCardsData
+    }
+  } catch (error) {
+    console.log('Error deletion', error)
+    throw error
+  }
+}
+export const fetchGetCard = async (id) => {
+  console.log('In the fetchCard, id value:', id)
+  try {
+    console.log('In the fetchCard try, id value:', id)
+    const response = await axios.get(`http://127.0.0.1:8000/api/cards/${id}`)
+    console.log(
+      'response after get card, response.data.data',
+      response.data.data
+    )
+    const cardsData = response && response.data.data
+    // const reversedCardsData = cardsData.reverse()
+    console.log(
+      'response after update,response.data.message: ',
+      response.data.message
+    )
+    if (response.data.message === 'Card found') {
+      return cardsData
+    }
+  } catch (error) {
+    console.log('Error fetching card', error)
+    throw error
+  }
+}
 
 export const fetchDeleteEnquiry = async (id) => {
   console.log('equiry staged for deletion', id)
@@ -65,16 +106,13 @@ export const fetchDeleteEnquiry = async (id) => {
   }
 }
 
-export const formLogin = async (email,password) => {
+export const formLogin = async (email, password) => {
   try {
-    const response = await axios.post(
-      'http://127.0.0.1:8000/api/users/login',
-      {
-        email,
-        password
-      }
-    )
-   return response
+    const response = await axios.post('http://127.0.0.1:8000/api/users/login', {
+      email,
+      password,
+    })
+    return response
   } catch (err) {
     console.log(err)
     return err
