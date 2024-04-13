@@ -35,28 +35,27 @@ export function CardBuidlerV2({
           alignItems: 'center',
         }}
       >
-        <CardMedia
-          component="img"
-          image={cardImgUrl}
-          style={{
-            width: '100% !important',
-            // width: '320px',
-            // height: '220px',
-            height: 'auto',
-
-            objectFit: 'cover',
-            transition: 'transform 0.5s ease',
-            transform: 'translateX(0)',
-          }}
-          {...(animation && {
-            onMouseEnter: (e) => {
-              e.currentTarget.style.transform = 'translateX(5px)'
-            },
-            onMouseLeave: (e) => {
-              e.currentTarget.style.transform = 'translateX(0)'
-            },
-          })}
-        />
+        <div style={{ width: 'auto', height: 'auto' }}>
+          <CardMedia
+            component="img"
+            image={cardImgUrl}
+            style={{
+              width: '300px',
+              height: '100%',
+              objectFit: 'cover',
+              transition: 'transform 0.5s ease',
+              transform: 'translateX(0)',
+            }}
+            {...(animation && {
+              onMouseEnter: (e) => {
+                e.currentTarget.style.transform = 'translateX(5px)'
+              },
+              onMouseLeave: (e) => {
+                e.currentTarget.style.transform = 'translateX(0)'
+              },
+            })}
+          />
+        </div>
         <CardContent>
           {/* <Typography variant="h6">{cardHeader}</Typography> */}
           <CardHeader title={cardHeader} sx={{ padding: '0px' }} />

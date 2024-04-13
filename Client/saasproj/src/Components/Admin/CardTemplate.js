@@ -60,14 +60,21 @@ function CardTemplate() {
 
       const selectedFile = files[0]
 
+      // Sanitize the file name by replacing spaces with underscores
+      const sanitizedFileName = selectedFile.name.replace(/\s+/g, '_')
+
       if (!selectedFile.type.startsWith('image/')) {
         alert('Please select an image file.')
         return
       }
       console.log('Image file path selectedFile: ', selectedFile)
+      // Create a new File object with the sanitized file name
+      const sanitizedFile = new File([selectedFile], sanitizedFileName, {
+        type: selectedFile.type,
+      })
       setInputs((prevState) => ({
         ...prevState,
-        [name]: selectedFile,
+        [name]: sanitizedFile,
       }))
     } else {
       // For regular text inputs, update the state with the input value

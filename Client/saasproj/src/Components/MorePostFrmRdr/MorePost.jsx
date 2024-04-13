@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { SaaSButton } from '../ThemeCust'
 import { useData } from '../DataContext/DataContext'
 // import { CardBuidler } from '../CardBuilder/CardBuilder'
-import { CardBuidlerV2 } from '../CardBuilder/CardBuilderV2'
+import { CardBuidlerV2 } from '../CardBuilder/CardBuilderV3'
 
 function MorePost() {
   const { cards } = useData()
