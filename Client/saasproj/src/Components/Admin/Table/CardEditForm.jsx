@@ -1,10 +1,30 @@
-import { Box, Button, Paper, TextField } from '@mui/material'
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Button,
+  Paper,
+  Snackbar,
+  TextField,
+} from '@mui/material'
 import { useState } from 'react'
 import { useData } from '../../DataContext/DataContext'
+import { SaaSButton } from '../../ThemeCust'
 
 function CardEditForm() {
-  const { cardEditValue, cardUpdate } = useData()
+  const {
+    cardEditValue,
+    cardUpdate,
+    setCardEditState,
+    setCardEditValue,
+    cardEditState,
+  } = useData()
   const [input, setInput] = useState(cardEditValue)
+  const [imagePreview, setImagePreview] = useState(null)
+  const [snackbarKey, setSnackbarKey] = useState(0)
+  const [error, setErr] = useState(false)
+  const [resStatus, setResponseStatus] = useState()
+  const [modifiedFields, setModifiedFields] = useState({})
 
   const handleChange = (e) => {
     const { name, value, files } = e.target
@@ -21,9 +41,18 @@ function CardEditForm() {
         ...prevInput,
         [name]: selectedFile,
       }))
+      setImagePreview(URL.createObjectURL(selectedFile))
+      setModifiedFields((prevFields) => ({
+        ...prevFields,
+        [name]: selectedFile,
+      }))
     } else {
       setInput((prevInput) => ({
         ...prevInput,
+        [name]: value,
+      }))
+      setModifiedFields((prevFields) => ({
+        ...prevFields,
         [name]: value,
       }))
     }
@@ -32,11 +61,37 @@ function CardEditForm() {
   const formSubmitHandler = async (e) => {
     e.preventDefault()
     try {
-      const response = await cardUpdate(cardEditValue.id, input)
-      // Handle response
-    } catch (error) {
-      // Handle error
+      console.log('cardEditValue.id', input._id)
+      console.log('cardEditValue, input', input)
+      const response = await cardUpdate(input._id, input)
+      console.log('response after calling cardUpdate', response)
+      console.log('response.data', response)
+      //   console.log('response.data.message', response.data.message)
+      if (response === 'Card updated') {
+        setCardEditState(false)
+        setCardEditValue(null)
+        setSnackbarKey((prevKey) => prevKey + 1)
+      }
+    } catch (err) {
+      console.log(
+        'Error submitting enquiry:',
+        err
+        // err.response,
+        // err.response.status,
+        // err.response.statusText
+      )
+      setErr(true)
+      //   setResponseStatus(`${err.response.status},
+      // ${err.response.statusText}`)
     }
+  }
+  const cancelButtonClick = () => {
+    setCardEditState(false)
+    setCardEditValue(null)
+  }
+  const handleSnackbarClose = () => {}
+  const errorHandle = () => {
+    setErr(false)
   }
 
   return (
@@ -69,24 +124,32 @@ function CardEditForm() {
               marginBottom: '20px',
             }}
           >
+            {/* display image */}
             <img
-              src={input.imagelink}
+              src={imagePreview || input.imagelink}
               alt="Preview"
-              style={{ height: 100, marginRight: 10, width: '50%' }}
+              style={{ height: 200, marginRight: 10, width: '40%' }}
             />
-            <input
-              accept="image/*"
-              id="image-upload"
-              type="file"
+            {/* uplod image */}
+            <TextField
               name="imagelink"
+              id="image-upload"
+              accept="image/*"
+              type="file"
+              variant="outlined"
               style={{ display: 'none' }}
               onChange={handleChange}
             />
             <label htmlFor="image-upload">
-              <Button variant="contained" component="span">
-                Upload Image
-              </Button>
+              <SaaSButton component="span">Upload Image</SaaSButton>
             </label>
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="Preview"
+                style={{ height: 100, marginLeft: 10 }}
+              />
+            )}
           </Box>
 
           <TextField
@@ -135,14 +198,48 @@ function CardEditForm() {
             onChange={handleChange}
           />
 
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            sx={{ width: '100%' }}
+          <Snackbar
+            key={snackbarKey}
+            open={!cardEditState}
+            autoHideDuration={2000}
+            onClose={handleSnackbarClose}
+            message="Card Created"
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            sx={{ backgroundColor: '#dde03d' }}
+          />
+          {error && (
+            <Alert severity="error" onClose={errorHandle}>
+              <AlertTitle>Error</AlertTitle>
+              {resStatus}
+            </Alert>
+          )}
+
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              width: '100%',
+            }}
           >
-            Submit
-          </Button>
+            <Button
+              onClick={formSubmitHandler}
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{ width: '45%', marginRight: '10px' }}
+            >
+              Submit
+            </Button>
+            <Button
+              onClick={cancelButtonClick}
+              type="reset"
+              variant="contained"
+              color="primary"
+              sx={{ width: '45%', marginLeft: '10px' }}
+            >
+              Cancel
+            </Button>
+          </Box>
         </form>
       </Paper>
     </Box>

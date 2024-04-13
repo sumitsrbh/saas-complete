@@ -28,7 +28,11 @@ exports.getAllCards = catchAsync(async (req, res, next) => {
 })
 
 exports.getCard = catchAsync(async (req, res, next) => {
-  const cards = await Card.findById(req.params.id)
+  const resultCard = await Card.findById(req.params.id)
+  const cards = {
+    ...resultCard.toObject(),
+    imagelink: baseURL + resultCard.imagelink.replace(/\\/g, '/'),
+  }
   console.log('get card response ', cards)
   res.status(200).json({
     message: 'Card found',

@@ -8,6 +8,7 @@ import {
   fetchUpdateCard,
   fetchGetCard,
 } from './DataService'
+import { useNavigate } from 'react-router-dom'
 
 const DataContext = createContext()
 
@@ -20,15 +21,20 @@ export const useData = () => useContext(DataContext)
 export const DataProvider = ({ children }) => {
   const [cards, setCards] = useState([])
   const [cardEditState, setCardEditState] = useState(false)
-  const [cardEditValue, setCardEditValue] = useState()
+  const [cardEditValue, setCardEditValue] = useState(null)
   const [enquiry, setEnquiry] = useState([])
   const [cardDeleteState, setCardDeleteState] = useState(false)
   const [enquiryDeleteState, setEnquiryDeleteState] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [logged, setLoggedIn] = useState({ state: false, token: 0 })
+  const [logged, setLoggedIn] = useState({
+    state: false,
+    value: 'Login',
+    token: 0,
+  })
   const [loginError, setLoginError] = useState(null)
   const [input, setInputs] = useState(initialValues)
   const [loginCredentials, setLoginCredentials] = useState(initialValues)
+  const navigate = useNavigate()
   // const [deleteId, setDeleteId] = useState(null)
 
   useEffect(() => {
@@ -64,8 +70,10 @@ export const DataProvider = ({ children }) => {
       console.log('Error deletion', error)
     }
   }
-  const cardUpdate = async ({ id, editValues }) => {
+  const cardUpdate = async (id, editValues) => {
     console.log('In the card update')
+    console.log('In the card update id ', id)
+    console.log('In the card update values ', editValues)
     try {
       const updateResult = await fetchUpdateCard({ id, editValues })
       if (updateResult) {
@@ -109,13 +117,17 @@ export const DataProvider = ({ children }) => {
   }
 
   const formSubmitHandler = async (email, password) => {
+    console.log('In formSubmitHandler of DataContect')
     try {
       const loginResult = await formLogin(email, password)
       if (loginResult.status === 200) {
-        setLoggedIn(
-          (logged.state = true),
-          (logged.token = loginResult.data.token)
-        )
+        setLoggedIn({
+          state: true,
+          value: 'Logout',
+          token: loginResult.data.token,
+        })
+        navigate('/admin-panel')
+        return loginResult
       }
     } catch (err) {
       console.log(err)

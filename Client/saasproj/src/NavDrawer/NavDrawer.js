@@ -16,9 +16,12 @@ import {
 import DrawerCmpnt from './DrawerCmpnt'
 import NavLinks from './NavLinks'
 import { Login } from '@mui/icons-material'
+import LogoutIcon from '@mui/icons-material/Logout'
+import { useData } from '../Components/DataContext/DataContext'
 
 function NavDrawer({ links }) {
   const theme = useTheme()
+  const { logged } = useData()
 
   // const isBelowLg = useMediaQuery(theme.breakpoints.down('lg'))
   const isBelowMd = useMediaQuery(theme.breakpoints.down('md'))
@@ -70,13 +73,14 @@ function NavDrawer({ links }) {
                 </SaaSButton>
               )}
               <SaaSButton component={Link} to={'/login'}>
-                <Login />
+                {logged.state ? <LogoutIcon /> : <Login />}
+
                 <Typography
                   sx={{
                     fontSize: { md: '14px', lg: '16px' },
                   }}
                 >
-                  Login
+                  {logged.state ? 'Logout' : 'Login'}
                 </Typography>
               </SaaSButton>
             </Grid>

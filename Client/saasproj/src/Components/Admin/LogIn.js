@@ -55,7 +55,7 @@ function LogIn() {
   // const [logged, setLoggedIn] = useState({ state: false, token: 0 })
   const [error, setError] = useState(null)
   const navigate = useNavigate()
-
+  console.log('State of login', logged.state)
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
@@ -72,8 +72,14 @@ function LogIn() {
           password: input.password,
         }
       )
+      console.log('In login', response)
       if (response.status === 200) {
-        setLoggedIn((logged.state = true), (logged.token = response.data.token))
+        console.log('login status', response.status)
+        setLoggedIn({
+          state: true,
+          value: 'Logout',
+          token: response.data.token,
+        })
 
         navigate('/admin-panel')
       }
@@ -82,6 +88,22 @@ function LogIn() {
       setError(err.response.data.message || 'Wrong credentials.')
     }
   }
+
+  const logOutHanlder = () => {
+    console.log('In the Login Logout handler')
+    setLoggedIn({
+      state: false,
+      value: 'Login',
+    })
+  }
+  const logInHanlder = () => {
+    console.log('In the Login handler')
+    setLoggedIn({
+      state: true,
+      value: 'Logout',
+    })
+  }
+
   return (
     <div style={contanierStyle}>
       <Paper elevation={3} sx={{ padding: '20px', backgroundColor: '#242424' }}>
@@ -89,38 +111,54 @@ function LogIn() {
         <div>
           {error && <Alert severity="error">{error}</Alert>}
           <form onSubmit={formSubmitHandler}>
-            <TextField
-              name="email"
-              value={input.email}
-              placeholder="Your email"
-              type="text"
-              variant="outlined"
-              fullWidth
-              sx={inputStyle}
-              InputProps={inputPropStyle}
-              onChange={handleChange}
-            />
-            <br />
-            <TextField
-              name="password"
-              value={input.password}
-              placeholder="password"
-              type="password"
-              variant="outlined"
-              fullWidth
-              sx={inputStyle}
-              InputProps={inputPropStyle}
-              onChange={handleChange}
-            />
-            {logged ? (
-              <SaaSButton sx={{ marginTop: '20px' }} type="submit">
+            {!logged.state ? (
+              <>
+                <TextField
+                  name="email"
+                  value={input.email}
+                  placeholder="Your email"
+                  type="text"
+                  variant="outlined"
+                  fullWidth
+                  sx={inputStyle}
+                  InputProps={inputPropStyle}
+                  onChange={handleChange}
+                />
+                <br />
+                <TextField
+                  name="password"
+                  value={input.password}
+                  placeholder="password"
+                  type="password"
+                  variant="outlined"
+                  fullWidth
+                  sx={inputStyle}
+                  InputProps={inputPropStyle}
+                  onChange={handleChange}
+                />
+              </>
+            ) : (
+              // <Alert severity="info">You are LoggedIn </Alert>
+              <></>
+            )}
+
+            {!logged.state ? (
+              <SaaSButton
+                sx={{ marginTop: '20px' }}
+                type="submit"
+                onClick={logInHanlder}
+              >
                 <Login />
-                Login
+                {logged.value}
               </SaaSButton>
             ) : (
-              <SaaSButton sx={{ marginTop: '20px' }} type="submit">
+              <SaaSButton
+                sx={{ marginTop: '20px' }}
+                type="submit"
+                onClick={logOutHanlder}
+              >
                 <LogoutIcon />
-                Logout
+                {logged.value}
               </SaaSButton>
             )}
           </form>
