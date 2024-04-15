@@ -39,10 +39,10 @@ export function CardBuidlerV2({
           component="img"
           image={cardImgUrl}
           style={{
-            width: '100% !important',
+            width: '100%',
             // width: '320px',
-            // height: '220px',
-            height: 'auto',
+            height: '220px',
+            // height: 'auto',
 
             objectFit: 'cover',
             transition: 'transform 0.5s ease',

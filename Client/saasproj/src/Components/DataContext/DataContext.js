@@ -41,37 +41,25 @@ export const DataProvider = ({ children }) => {
   const navigate = useNavigate()
   // const [deleteId, setDeleteId] = useState(null)
 
-  // // Load token from localStorage on component mount
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token')
-  //   if (token) {
-  //     setLoggedIn({
-  //       state: true,
-  //       value: 'Logout',
-  //       token: token,
-  //     })
-  //   }
-  //   // Add event listener for beforeunload
-  //   window.addEventListener('beforeunload', handleBeforeUnload)
-  //   // Cleanup function
-  //   return () => {
-  //     window.removeEventListener('beforeunload', handleBeforeUnload)
-  //   }
-  // }, [])
-
-  // const handleBeforeUnload = () => {
-  //   // Reset token when the browser is closed
-  //   localStorage.removeItem('token')
-  // }
-
-  // Load token from sessionStorage on component mount
   useEffect(() => {
-    const token = sessionStorage.getItem('token')
-    if (token) {
+    // Load token from localStorage on component mount
+    const localStorageToken = localStorage.getItem('token')
+    const sessionStorageToken = sessionStorage.getItem('token')
+
+    if (sessionStorageToken) {
+      // If token exists in sessionStorage, set loggedIn state
       setLoggedIn({
         state: true,
         value: 'Logout',
-        token: token,
+        token: sessionStorageToken,
+      })
+    } else if (localStorageToken) {
+      // If token exists in localStorage but not in sessionStorage, set it to sessionStorage
+      sessionStorage.setItem('token', localStorageToken)
+      setLoggedIn({
+        state: true,
+        value: 'Logout',
+        token: localStorageToken,
       })
     }
   }, [])
@@ -188,7 +176,7 @@ export const DataProvider = ({ children }) => {
       const loginResult = await formLogin(email, password)
       if (loginResult.status === 200) {
         // // Store token in localStorage
-        // localStorage.setItem('token', loginResult.data.token)
+        localStorage.setItem('token', loginResult.data.token)
 
         // Store token in sessionStorage
         sessionStorage.setItem('token', loginResult.data.token)
@@ -210,7 +198,7 @@ export const DataProvider = ({ children }) => {
   // Logout function to clear token from localStorage
   const logOutHanlder = () => {
     console.log('In the Login Logout handler')
-    // localStorage.removeItem('token')
+    localStorage.removeItem('token')
     sessionStorage.removeItem('token')
     setLoggedIn({
       state: false,
