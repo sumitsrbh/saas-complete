@@ -41,6 +41,18 @@ export const DataProvider = ({ children }) => {
   const navigate = useNavigate()
   // const [deleteId, setDeleteId] = useState(null)
 
+  // Load token from localStorage on component mount
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      setLoggedIn({
+        state: true,
+        value: 'Logout',
+        token: token,
+      })
+    }
+  }, [])
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -136,11 +148,13 @@ export const DataProvider = ({ children }) => {
     }
   }
 
-  const formSubmitHandler = async (email, password) => {
-    console.log('In formSubmitHandler of DataContect')
+  const loginFromSubmitHandler = async (email, password) => {
+    console.log('In loginFromSubmitHandler of DataContect')
     try {
       const loginResult = await formLogin(email, password)
       if (loginResult.status === 200) {
+        // Store token in localStorage
+        localStorage.setItem('token', loginResult.data.token)
         setLoggedIn({
           state: true,
           value: 'Logout',
@@ -155,9 +169,21 @@ export const DataProvider = ({ children }) => {
     }
   }
 
+  // Logout function to clear token from localStorage
+  const logOutHanlder = () => {
+    console.log('In the Login Logout handler')
+    localStorage.removeItem('token')
+    setLoggedIn({
+      state: false,
+      value: 'Login',
+      token: 0,
+    })
+  }
+
   return (
     <DataContext.Provider
       value={{
+        setCards,
         cards,
         setCardDeleteState,
         cardDeleteState,
@@ -178,10 +204,11 @@ export const DataProvider = ({ children }) => {
         setEnquiryDeleteState,
         isLoading,
 
-        formSubmitHandler,
+        loginFromSubmitHandler,
         logged,
         setLoggedIn,
         loginError,
+        logOutHanlder,
         input,
         setInputs,
         handleTabClick,

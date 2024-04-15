@@ -50,9 +50,15 @@ const initialValues = {
 }
 
 function LogIn() {
-  const { logged, setLoggedIn, input, setInputs } = useData()
-  // const [input, setInputs] = useState(initialValues)
-  // const [logged, setLoggedIn] = useState({ state: false, token: 0 })
+  const {
+    logged,
+    setLoggedIn,
+    logOutHanlder,
+    input,
+    setInputs,
+    loginFromSubmitHandler,
+  } = useData()
+
   const [error, setError] = useState(null)
   const navigate = useNavigate()
   console.log('State of login', logged.state)
@@ -62,46 +68,47 @@ function LogIn() {
       [e.target.name]: e.target.value.trim(),
     }))
   }
-  const formSubmitHandler = async (e) => {
+  // const formSubmitHandler = async (e) => {
+  //   e.preventDefault()
+  //   try {
+  //     const response = await axios.post(
+  //       'http://127.0.0.1:8000/api/users/login',
+  //       {
+  //         email: input.email,
+  //         password: input.password,
+  //       }
+  //     )
+  //     console.log('In login', response)
+  //     if (response.status === 200) {
+  //       console.log('login status', response.status)
+  //       setLoggedIn({
+  //         state: true,
+  //         value: 'Logout',
+  //         token: response.data.token,
+  //       })
+
+  //       navigate('/admin-panel')
+  //     }
+  //   } catch (err) {
+  //     console.log(err)
+  //     setError(err.response.data.message || 'Wrong credentials.')
+  //   }
+  // }
+  const formSubmitHandlerCall = async (e) => {
     e.preventDefault()
     try {
-      const response = await axios.post(
-        'http://127.0.0.1:8000/api/users/login',
-        {
-          email: input.email,
-          password: input.password,
-        }
+      const loginResponse = await loginFromSubmitHandler(
+        input.email,
+        input.password
       )
-      console.log('In login', response)
-      if (response.status === 200) {
-        console.log('login status', response.status)
-        setLoggedIn({
-          state: true,
-          value: 'Logout',
-          token: response.data.token,
-        })
-
-        navigate('/admin-panel')
-      }
-    } catch (err) {
-      console.log(err)
-      setError(err.response.data.message || 'Wrong credentials.')
+      console.log('loginResponse', loginResponse)
+    } catch (error) {
+      console.log('Error Login', error)
     }
   }
 
-  const logOutHanlder = () => {
-    console.log('In the Login Logout handler')
-    setLoggedIn({
-      state: false,
-      value: 'Login',
-    })
-  }
   const logInHanlder = () => {
-    console.log('In the Login handler')
-    setLoggedIn({
-      state: true,
-      value: 'Logout',
-    })
+    navigate('/login')
   }
 
   return (
@@ -110,7 +117,7 @@ function LogIn() {
         <SubscribeCardAlike header="DSHG Sonic" formOn={false} />
         <div>
           {error && <Alert severity="error">{error}</Alert>}
-          <form onSubmit={formSubmitHandler}>
+          <form onSubmit={formSubmitHandlerCall}>
             {!logged.state ? (
               <>
                 <TextField

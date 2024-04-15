@@ -14,6 +14,14 @@ import { useData } from '../DataContext/DataContext'
 import CardCreateTemplate from './CardCreateTemplate'
 import CardEditForm from './Table/CardEditForm'
 
+const contanierStyle = {
+  textAlign: 'center',
+  width: '350px',
+  margin: '0 auto',
+  marginTop: '160px',
+  marginBottom: '100px',
+}
+
 function AdminPanelV2() {
   const navigate = useNavigate()
   const {
@@ -38,7 +46,7 @@ function AdminPanelV2() {
         display: 'flex',
       }}
     >
-      {logged ? (
+      {logged.state ? (
         <>
           <Paper
             elevation={10}
@@ -76,14 +84,18 @@ function AdminPanelV2() {
           </Paper>
 
           <Box sx={{ flexGrow: 1 }}>
-            {selectedTab === 'Card Create' && <CardCreateTemplate />}
-            {selectedTab === 'Cards Table' && <CardTable />}
-            {selectedTab === 'Enquiry' && <EnquiryTable />}
+            {selectedTab === 'Card Create' && !cardEditState && (
+              <CardCreateTemplate />
+            )}
+            {selectedTab === 'Cards Table' && !cardEditState && <CardTable />}
+            {selectedTab === 'Enquiry' && !cardEditState && <EnquiryTable />}
             {cardEditState && <CardEditForm />}
           </Box>
         </>
       ) : (
-        <Alert severity="warning">Please login</Alert>
+        <Paper sx={contanierStyle}>
+          <Alert severity="warning">Please login</Alert>
+        </Paper>
       )}
     </Box>
   )
