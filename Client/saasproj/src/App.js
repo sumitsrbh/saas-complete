@@ -23,7 +23,9 @@ const ContactUs = lazy(() => import('./Components/ContactUs/ContanctUs'))
 const LogIn = lazy(() => import('./Components/Admin/LogIn'))
 // const AdminPanel = lazy(() => import('./Components/Admin/AdminPanel'))
 const AdminPanel = lazy(() => import('./Components/Admin/AdminPanelV2'))
-const CardTemplate = lazy(() => import('./Components/Admin/CardTemplate'))
+const CardCreateTemplate = lazy(() =>
+  import('./Components/Admin/CardCreateTemplate')
+)
 
 const navIndexArray = [
   { text: 'Home', route: '/' },
@@ -47,7 +49,7 @@ function App() {
             <Route path="/login" element={<LogIn />} />
             {/* <Route path="/admin-panel" element={<AdminPanel />} /> */}
             <Route path="/admin-panel" element={<AdminPanelV2 />} />
-            <Route path="/card-template" element={<CardTemplate />} />
+            <Route path="/card-create" element={<CardCreateTemplate />} />
           </Routes>
         </Suspense>
 

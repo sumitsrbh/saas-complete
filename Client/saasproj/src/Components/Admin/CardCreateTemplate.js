@@ -11,6 +11,7 @@ import { useState } from 'react'
 import SubscribeCardAlike from '../HomeCompCont/SubscribeCard'
 import { SaaSButton } from '../ThemeCust'
 import DriveFolderUploadTwoToneIcon from '@mui/icons-material/DriveFolderUploadTwoTone'
+import { useData } from '../DataContext/DataContext'
 
 const initialValues = {
   badge: '',
@@ -45,11 +46,16 @@ const inputPropStyle = {
   },
 }
 
-function CardTemplate() {
+function CardCreateTemplate() {
+  const {
+    cardCreated,
+    setCardCreated,
+    setSelectedTab,
+    setCardTable,
+    setCards,
+  } = useData()
   const [input, setInputs] = useState(initialValues)
   const [error, setErr] = useState(false)
-  const [resStatus, setResponseStatus] = useState()
-  const [cardCreated, setCardCreated] = useState(false)
   const [snackbarKey, setSnackbarKey] = useState(0)
   const handleChange = (e) => {
     const { name, value, files } = e.target
@@ -96,40 +102,30 @@ function CardTemplate() {
       const response = await axios.post(
         'http://127.0.0.1:8000/api/cards',
         formData
-        // {
-        // headertext: input.headertext,
-        //   author: input.author,
-        //   body: input.body,
-        //   badge: input.badge,
-        //   date: new Date(),
-        //   imagelink: input.imagelink,
-        // }
       )
-      console.log('response.data.message ', response.data.message)
+      console.log('response in the CardCreateTemplate', response)
       if (response.data.message === 'Card created') {
+        const cardsData = response && response.data.data
+        const reversedCardsData = cardsData.reverse()
+        setCards(reversedCardsData)
         setInputs(initialValues)
-        setCardCreated(true)
         setSnackbarKey((prevKey) => prevKey + 1)
+        setCardCreated(true)
       }
     } catch (err) {
-      console.error(
-        'Error submitting enquiry:',
-        err.response,
-        err.response.status,
-        err.response.statusText
-      )
+      console.log('Error submitting enquiry:', err)
       setErr(true)
-      setResponseStatus(`${err.response.status},
-        ${err.response.statusText}`)
+      // setResponseStatus(`${err.response.status},
+      //   ${err.response.statusText}`)
     }
   }
   const handleSnackbarClose = () => {
     setCardCreated(false)
+    setSelectedTab('Cards Table')
   }
   const errorHandle = () => {
     setErr(false)
   }
-  console.log('card created-', cardCreated, '')
   return (
     <Box
       sx={{
@@ -247,19 +243,23 @@ function CardTemplate() {
           />
           <Snackbar
             key={snackbarKey}
-            open={cardCreated}
+            open={cardCreated || error}
             autoHideDuration={2000}
             onClose={handleSnackbarClose}
-            message="Card Created"
+            // message="Card Created"
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            sx={{ backgroundColor: '#dde03d' }}
-          />
-          {error && (
-            <Alert severity="error" onClose={errorHandle}>
-              <AlertTitle>Error</AlertTitle>
-              {resStatus}
-            </Alert>
-          )}
+            // sx={{ backgroundColor: '#dde03d' }}
+          >
+            {error ? (
+              <Alert severity="error" onClose={errorHandle}>
+                <AlertTitle>Error</AlertTitle>
+              </Alert>
+            ) : (
+              <Alert severity="success">
+                <AlertTitle>Card Created</AlertTitle>
+              </Alert>
+            )}
+          </Snackbar>
 
           <SaaSButton
             type="submit"
@@ -281,4 +281,4 @@ function CardTemplate() {
   )
 }
 
-export default CardTemplate
+export default CardCreateTemplate

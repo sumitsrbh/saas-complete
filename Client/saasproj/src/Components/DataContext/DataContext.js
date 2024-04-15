@@ -34,6 +34,10 @@ export const DataProvider = ({ children }) => {
   const [loginError, setLoginError] = useState(null)
   const [input, setInputs] = useState(initialValues)
   const [loginCredentials, setLoginCredentials] = useState(initialValues)
+  const [enquiryTable, setEnquiryTable] = useState(false)
+  const [selectedTab, setSelectedTab] = useState('Card Create')
+  const [cardTable, setCardTable] = useState(false)
+  const [cardCreated, setCardCreated] = useState(false)
   const navigate = useNavigate()
   // const [deleteId, setDeleteId] = useState(null)
 
@@ -56,14 +60,30 @@ export const DataProvider = ({ children }) => {
     fetchData()
   }, [])
 
+  const handleTabClick = (tab) => {
+    setSelectedTab(tab)
+    if (tab === 'Cards Table') {
+      setCardTable(true)
+      setEnquiryTable(false)
+    } else if (tab === 'Enquiry') {
+      // Navigate to the Enquiry table
+      setEnquiryTable(true)
+      setCardTable(false)
+      // navigate('/enquiry-table')
+    } else if (tab === 'Card Create') {
+      setEnquiryTable(false)
+      setCardTable(false)
+    }
+  }
+
   const cardDelete = async (Id) => {
     console.log('In the card delete-05')
     try {
       const deleteResult = await fetchDeleteCard(Id)
       if (deleteResult) {
-        console.log('deleteResult :', deleteResult)
-        setCardDeleteState(true)
         setCards(deleteResult)
+        // console.log('deleteResult :', deleteResult)
+        setCardDeleteState(true)
         return cards
       }
     } catch (error) {
@@ -149,6 +169,8 @@ export const DataProvider = ({ children }) => {
         cardEditState,
         setCardEditState,
         setCardEditValue,
+        cardCreated,
+        setCardCreated,
         cardGet,
         enquiry,
         enquiryDelete,
@@ -162,6 +184,13 @@ export const DataProvider = ({ children }) => {
         loginError,
         input,
         setInputs,
+        handleTabClick,
+        cardTable,
+        setCardTable,
+        selectedTab,
+        setSelectedTab,
+        enquiryTable,
+        setEnquiryTable,
       }}
     >
       {children}

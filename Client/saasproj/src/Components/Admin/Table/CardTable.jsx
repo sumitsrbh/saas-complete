@@ -14,7 +14,7 @@ import { EditButton } from './EditButton'
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 60 },
   // { field: 'serverId', headerName: 'Server Id', hideable: true, width: 250 },
-  { field: 'headerText', headerName: 'Header Text', width: 350 },
+  { field: 'headerText', headerName: 'Header Text', width: 200 },
   { field: 'badges', headerName: 'Badges', width: 150 },
   { field: 'author', headerName: 'Author', width: 150 },
   {
@@ -67,7 +67,7 @@ const columns: GridColDef[] = [
 ]
 
 function CardTable() {
-  const { cards, isLoading } = useData()
+  const { cards, isLoading, cardCreated } = useData()
   const [rows, setRows] = useState([])
 
   useEffect(() => {
@@ -83,7 +83,7 @@ function CardTable() {
         body: card.body,
       }))
     )
-  }, [cards])
+  }, [cards, cardCreated])
   return (
     <Paper sx={{ height: '400px', width: 'auto' }}>
       <DataGrid
