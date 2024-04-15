@@ -29,7 +29,7 @@ export const DataProvider = ({ children }) => {
   const [logged, setLoggedIn] = useState({
     state: false,
     value: 'Login',
-    token: 0,
+    token: null,
   })
   const [loginError, setLoginError] = useState(null)
   const [input, setInputs] = useState(initialValues)
@@ -132,7 +132,6 @@ export const DataProvider = ({ children }) => {
       })
       if (updateResult) {
         console.log('updateResult :', updateResult)
-        setCardEditState(true)
         setCards(updateResult)
         return updateResult
       }
@@ -147,8 +146,9 @@ export const DataProvider = ({ children }) => {
       const getResult = await fetchGetCard(id)
       if (getResult) {
         console.log('updateResult :', getResult.cards)
-        setCardEditValue(getResult.cards)
+        //set the value of clicked cards in the formedit
         setCardEditState(true)
+        setCardEditValue(getResult.cards)
       }
     } catch (error) {
       console.log('Error Card get', error)
@@ -203,7 +203,7 @@ export const DataProvider = ({ children }) => {
     setLoggedIn({
       state: false,
       value: 'Login',
-      token: 0,
+      token: null,
     })
   }
 

@@ -18,12 +18,13 @@ function CardEditForm() {
     setCardEditState,
     setCardEditValue,
     cardEditState,
+    setSelectedTab,
   } = useData()
   const [input, setInput] = useState(cardEditValue)
   const [imagePreview, setImagePreview] = useState(null)
   const [snackbarKey, setSnackbarKey] = useState(0)
   const [error, setErr] = useState(false)
-  const [resStatus, setResponseStatus] = useState()
+  // const [resStatus, setResponseStatus] = useState()
   const [modifiedFields, setModifiedFields] = useState({})
 
   const handleChange = (e) => {
@@ -60,16 +61,11 @@ function CardEditForm() {
 
   const cardEditFormSubmitHandler = async (e) => {
     e.preventDefault()
+    setCardEditState(false)
+    setSelectedTab('Cards Table')
     try {
-      console.log('cardEditValue.id', input._id)
-      console.log('cardEditValue, input', input)
       const response = await cardUpdate(input._id, input)
-      console.log('response after calling cardUpdate', response)
-      console.log('response.data', response)
-      //   console.log('response.data.message', response.data.message)
       if (response === 'Card updated') {
-        setCardEditState(false)
-        setCardEditValue(null)
         setSnackbarKey((prevKey) => prevKey + 1)
       }
     } catch (err) {
@@ -89,10 +85,10 @@ function CardEditForm() {
     setCardEditState(false)
     setCardEditValue(null)
   }
-  const handleSnackbarClose = () => {}
-  const errorHandle = () => {
-    setErr(false)
-  }
+  // const handleSnackbarClose = () => {
+  //   setCardEditState(false)
+  //   setSelectedTab('Cards Table')
+  // }
 
   return (
     <Box
@@ -200,19 +196,21 @@ function CardEditForm() {
 
           <Snackbar
             key={snackbarKey}
-            open={!cardEditState}
+            open={!cardEditState || error}
             autoHideDuration={2000}
-            onClose={handleSnackbarClose}
-            message="Card Created"
+            // onClose={handleSnackbarClose}
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            sx={{ backgroundColor: '#dde03d' }}
-          />
-          {error && (
-            <Alert severity="error" onClose={errorHandle}>
-              <AlertTitle>Error</AlertTitle>
-              {resStatus}
-            </Alert>
-          )}
+          >
+            {error ? (
+              <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+              </Alert>
+            ) : (
+              <Alert severity="success">
+                <AlertTitle>Card Edited</AlertTitle>
+              </Alert>
+            )}
+          </Snackbar>
 
           <Box
             sx={{

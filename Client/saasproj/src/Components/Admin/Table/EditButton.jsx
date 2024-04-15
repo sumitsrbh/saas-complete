@@ -4,16 +4,12 @@ import EditIcon from '@mui/icons-material/Edit'
 import { useState } from 'react'
 
 export function EditButton({ id }) {
-  const { cardGet, cardEditState, setCardEditValue } = useData()
-  const [modelOpen, setModalOpen] = useState(false)
+  const { cardGet } = useData()
 
   const handleEdit = async () => {
     if (id !== 'null') {
       console.log('editButton values', id)
-      const response = await cardGet(id)
-      if (response) {
-        console.log('In EditButton, repose fro cardget', response.cards)
-      }
+      await cardGet(id)
     }
   }
 

@@ -103,7 +103,7 @@ function CardCreateTemplate() {
         'http://127.0.0.1:8000/api/cards',
         formData
       )
-      console.log('response in the CardCreateTemplate', response.data.data)
+      // console.log('response in the CardCreateTemplate', response.data.data)
       if (response.data.message === 'Card created') {
         const cardsData = response && response.data.data.cards
         const reversedCardsData = cardsData.reverse()
@@ -248,7 +248,6 @@ function CardCreateTemplate() {
             onClose={handleSnackbarClose}
             // message="Card Created"
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            // sx={{ backgroundColor: '#dde03d' }}
           >
             {error ? (
               <Alert severity="error" onClose={errorHandle}>
