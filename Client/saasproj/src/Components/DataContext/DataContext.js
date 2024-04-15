@@ -41,9 +41,32 @@ export const DataProvider = ({ children }) => {
   const navigate = useNavigate()
   // const [deleteId, setDeleteId] = useState(null)
 
-  // Load token from localStorage on component mount
+  // // Load token from localStorage on component mount
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token')
+  //   if (token) {
+  //     setLoggedIn({
+  //       state: true,
+  //       value: 'Logout',
+  //       token: token,
+  //     })
+  //   }
+  //   // Add event listener for beforeunload
+  //   window.addEventListener('beforeunload', handleBeforeUnload)
+  //   // Cleanup function
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleBeforeUnload)
+  //   }
+  // }, [])
+
+  // const handleBeforeUnload = () => {
+  //   // Reset token when the browser is closed
+  //   localStorage.removeItem('token')
+  // }
+
+  // Load token from sessionStorage on component mount
   useEffect(() => {
-    const token = localStorage.getItem('token')
+    const token = sessionStorage.getItem('token')
     if (token) {
       setLoggedIn({
         state: true,
@@ -106,8 +129,19 @@ export const DataProvider = ({ children }) => {
     console.log('In the card update')
     console.log('In the card update id ', id)
     console.log('In the card update values ', editValues)
+
     try {
-      const updateResult = await fetchUpdateCard({ id, editValues })
+      const modifiedEditValues = { ...editValues }
+      if (modifiedEditValues.imagelink.startsWith('http://127.0.0.1:8000/')) {
+        modifiedEditValues.imagelink = modifiedEditValues.imagelink.replace(
+          'http://127.0.0.1:8000/',
+          ''
+        )
+      }
+      const updateResult = await fetchUpdateCard({
+        id,
+        editValues: modifiedEditValues,
+      })
       if (updateResult) {
         console.log('updateResult :', updateResult)
         setCardEditState(true)
@@ -153,8 +187,12 @@ export const DataProvider = ({ children }) => {
     try {
       const loginResult = await formLogin(email, password)
       if (loginResult.status === 200) {
-        // Store token in localStorage
-        localStorage.setItem('token', loginResult.data.token)
+        // // Store token in localStorage
+        // localStorage.setItem('token', loginResult.data.token)
+
+        // Store token in sessionStorage
+        sessionStorage.setItem('token', loginResult.data.token)
+
         setLoggedIn({
           state: true,
           value: 'Logout',
@@ -172,7 +210,8 @@ export const DataProvider = ({ children }) => {
   // Logout function to clear token from localStorage
   const logOutHanlder = () => {
     console.log('In the Login Logout handler')
-    localStorage.removeItem('token')
+    // localStorage.removeItem('token')
+    sessionStorage.removeItem('token')
     setLoggedIn({
       state: false,
       value: 'Login',

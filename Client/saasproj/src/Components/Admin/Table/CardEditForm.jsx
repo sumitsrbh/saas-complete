@@ -58,7 +58,7 @@ function CardEditForm() {
     }
   }
 
-  const formSubmitHandler = async (e) => {
+  const cardEditFormSubmitHandler = async (e) => {
     e.preventDefault()
     try {
       console.log('cardEditValue.id', input._id)
@@ -114,7 +114,7 @@ function CardEditForm() {
           alignItems: 'center',
         }}
       >
-        <form onSubmit={formSubmitHandler} style={{ width: '100%' }}>
+        <form onSubmit={cardEditFormSubmitHandler} style={{ width: '100%' }}>
           <Box
             sx={{
               display: 'flex',
@@ -222,13 +222,13 @@ function CardEditForm() {
             }}
           >
             <Button
-              onClick={formSubmitHandler}
+              onClick={cardEditFormSubmitHandler}
               type="submit"
               variant="contained"
               color="primary"
               sx={{ width: '45%', marginRight: '10px' }}
             >
-              Submit
+              Update
             </Button>
             <Button
               onClick={cancelButtonClick}
