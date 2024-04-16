@@ -10,6 +10,7 @@ import {
 import { useState } from 'react'
 import { useData } from '../../DataContext/DataContext'
 import { SaaSButton } from '../../ThemeCust'
+import axios from 'axios'
 
 function CardEditForm() {
   const {
@@ -19,76 +20,87 @@ function CardEditForm() {
     setCardEditValue,
     cardEditState,
     setSelectedTab,
+    setCards,
   } = useData()
-  const [input, setInput] = useState(cardEditValue)
+  const [input, setInputs] = useState({
+    author: cardEditValue.author,
+    badge: cardEditValue.badge,
+    body: cardEditValue.body,
+    headertext: cardEditValue.headertext,
+    imagelink: cardEditValue.imagelink,
+  })
+  const inputId = cardEditValue._id
   const [imagePreview, setImagePreview] = useState(null)
   const [snackbarKey, setSnackbarKey] = useState(0)
   const [error, setErr] = useState(false)
   // const [resStatus, setResponseStatus] = useState()
   const [modifiedFields, setModifiedFields] = useState({})
 
+  // console.log('pre loded vlaue of edit card', input)
+  // console.log('id to be edited', inputId)
+
   const handleChange = (e) => {
     const { name, value, files } = e.target
 
     if (name === 'imagelink' && files.length > 0) {
       const selectedFile = files[0]
-
+      const sanitizedFileName = selectedFile.name.replace(/\s+/g, '_')
       if (!selectedFile.type.startsWith('image/')) {
         alert('Please select an image file.')
         return
       }
+      const sanitizedFile = new File([selectedFile], sanitizedFileName, {
+        type: selectedFile.type,
+      })
 
-      setInput((prevInput) => ({
-        ...prevInput,
-        [name]: selectedFile,
-      }))
       setImagePreview(URL.createObjectURL(selectedFile))
-      setModifiedFields((prevFields) => ({
-        ...prevFields,
-        [name]: selectedFile,
+
+      setInputs((prevState) => ({
+        ...prevState,
+        [name]: sanitizedFile,
       }))
+      console.log('image file 00', input.imagelink)
     } else {
-      setInput((prevInput) => ({
-        ...prevInput,
-        [name]: value,
-      }))
-      setModifiedFields((prevFields) => ({
-        ...prevFields,
+      setInputs((prevState) => ({
+        ...prevState,
         [name]: value,
       }))
     }
+    console.log('image file 01', input.imagelink)
   }
 
   const cardEditFormSubmitHandler = async (e) => {
     e.preventDefault()
-    setCardEditState(false)
-    setSelectedTab('Cards Table')
     try {
-      const response = await cardUpdate(input._id, input)
-      if (response === 'Card updated') {
-        setSnackbarKey((prevKey) => prevKey + 1)
-      }
-    } catch (err) {
-      console.log(
-        'Error submitting enquiry:',
-        err
-        // err.response,
-        // err.response.status,
-        // err.response.statusText
+      const formData = new FormData()
+      Object.entries(input).forEach(([key, value]) => {
+        formData.append(key, value)
+      })
+      const response = await axios.patch(
+        `http://127.0.0.1:8000/api/cards/${inputId}`,
+        formData
       )
-      setErr(true)
-      //   setResponseStatus(`${err.response.status},
-      // ${err.response.statusText}`)
+      // console.log('response  fetchUpdateCard after update', response)
+      const cardsData = response && response.data.data
+
+      const reversedCardsData = cardsData.cards.reverse()
+      console.log('response after update: ', response.data.message)
+      if (response.data.message === 'Card updated') {
+        setCards(reversedCardsData)
+        setCardEditState(false)
+      }
+    } catch (error) {
+      console.log('Error Updation', error)
+      throw error
     }
   }
   const cancelButtonClick = () => {
     setCardEditState(false)
     setCardEditValue(null)
   }
-  // const handleSnackbarClose = () => {
-  //   setCardEditState(false)
-  //   setSelectedTab('Cards Table')
-  // }
+  const handleSnackbarClose = () => {
+    setSelectedTab('Cards Table')
+  }
 
   return (
     <Box
@@ -122,7 +134,7 @@ function CardEditForm() {
           >
             {/* display image */}
             <img
-              src={imagePreview || input.imagelink}
+              src={cardEditValue.imagelink}
               alt="Preview"
               style={{ height: 200, marginRight: 10, width: '40%' }}
             />
@@ -152,7 +164,6 @@ function CardEditForm() {
             name="badge"
             label="Badge"
             value={input.badge}
-            placeholder="Badge"
             type="text"
             variant="outlined"
             sx={{ width: '100%', marginBottom: '20px' }}
@@ -163,7 +174,6 @@ function CardEditForm() {
             name="headertext"
             label="Header Text"
             value={input.headertext}
-            placeholder="Enter header for Card"
             type="text"
             variant="outlined"
             sx={{ width: '100%', marginBottom: '20px' }}
@@ -174,7 +184,6 @@ function CardEditForm() {
             name="author"
             label="Author"
             value={input.author}
-            placeholder="Author"
             type="text"
             variant="outlined"
             sx={{ width: '100%', marginBottom: '20px' }}
@@ -185,7 +194,6 @@ function CardEditForm() {
             name="body"
             label="Body"
             value={input.body}
-            placeholder="Type in body text"
             type="text"
             variant="outlined"
             multiline
@@ -198,7 +206,7 @@ function CardEditForm() {
             key={snackbarKey}
             open={!cardEditState || error}
             autoHideDuration={2000}
-            // onClose={handleSnackbarClose}
+            onClose={handleSnackbarClose}
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           >
             {error ? (

@@ -76,7 +76,7 @@ export const DataProvider = ({ children }) => {
         setEnquiry(enquiryResult)
         setIsLoading(false)
       } catch (error) {
-        console.log('Fetching error in Datacontext')
+        // console.log('Fetching error in Datacontext')
       }
     }
 
@@ -113,39 +113,30 @@ export const DataProvider = ({ children }) => {
       console.log('Error deletion', error)
     }
   }
-  const cardUpdate = async (id, editValues) => {
+  const cardUpdate = async ({ inputId, formData }) => {
     console.log('In the card update')
-    console.log('In the card update id ', id)
-    console.log('In the card update values ', editValues)
+    // console.log('In the card update id ', inputId)
+    console.log('In the card update values ', formData)
 
     try {
-      const modifiedEditValues = { ...editValues }
-      if (modifiedEditValues.imagelink.startsWith('http://127.0.0.1:8000/')) {
-        modifiedEditValues.imagelink = modifiedEditValues.imagelink.replace(
-          'http://127.0.0.1:8000/',
-          ''
-        )
-      }
-      const updateResult = await fetchUpdateCard({
-        id,
-        editValues: modifiedEditValues,
-      })
+      console.log('in CardUpdadte  edited Valeus', formData)
+      const updateResult = await fetchUpdateCard({ inputId, formData })
       if (updateResult) {
         console.log('updateResult :', updateResult)
         setCards(updateResult)
         return updateResult
       }
     } catch (error) {
-      console.log('Error deletion', error)
+      console.log('Error Updation', error)
     }
   }
 
   const cardGet = async (id) => {
-    console.log('In the card update')
+    // console.log('In the card update')
     try {
       const getResult = await fetchGetCard(id)
       if (getResult) {
-        console.log('updateResult :', getResult.cards)
+        // console.log('updateResult :', getResult.cards)
         //set the value of clicked cards in the formedit
         setCardEditState(true)
         setCardEditValue(getResult.cards)
@@ -156,11 +147,11 @@ export const DataProvider = ({ children }) => {
   }
 
   const enquiryDelete = async (Id) => {
-    console.log('In the enquiry delete-05')
+    // console.log('In the enquiry delete-05')
     try {
       const deleteResult = await fetchDeleteEnquiry(Id)
       if (deleteResult) {
-        console.log('deleteResult :', deleteResult)
+        // console.log('deleteResult :', deleteResult)
         setEnquiryDeleteState(true)
         setEnquiry(deleteResult)
         return enquiry
@@ -171,7 +162,7 @@ export const DataProvider = ({ children }) => {
   }
 
   const loginFromSubmitHandler = async (email, password) => {
-    console.log('In loginFromSubmitHandler of DataContect')
+    // console.log('In loginFromSubmitHandler of DataContect')
     try {
       const loginResult = await formLogin(email, password)
       if (loginResult.status === 200) {
@@ -197,7 +188,7 @@ export const DataProvider = ({ children }) => {
 
   // Logout function to clear token from localStorage
   const logOutHanlder = () => {
-    console.log('In the Login Logout handler')
+    // console.log('In the Login Logout handler')
     localStorage.removeItem('token')
     sessionStorage.removeItem('token')
     setLoggedIn({

@@ -25,7 +25,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 //middleware
 app.use((req, res, next) => {
   // req.requestTime = new Data().toISOString()
-  console.log(req.headers)
+  // console.log(req.headers)
   next()
 })
 

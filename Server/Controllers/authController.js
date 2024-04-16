@@ -30,7 +30,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 })
 
 exports.login = catchAsync(async (req, res, next) => {
-  console.log('Check login req:', req)
+  // console.log('Check login req:', req)
   const { email, password } = req.body
 
   if (!email || !password) {
@@ -68,7 +68,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   // jwt.verify(token, process.env.JWT_SECRET)
   //call promisify on it.
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
-  console.log('decoded data:', decoded)
+  // console.log('decoded data:', decoded)
   //3. check if use still exists
 
   //check if user changed passwrord.

@@ -8,7 +8,7 @@ export function EditButton({ id }) {
 
   const handleEdit = async () => {
     if (id !== 'null') {
-      console.log('editButton values', id)
+      // console.log('editButton values', id)
       await cardGet(id)
     }
   }

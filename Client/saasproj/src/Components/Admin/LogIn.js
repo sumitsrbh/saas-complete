@@ -101,9 +101,9 @@ function LogIn() {
         input.email,
         input.password
       )
-      console.log('loginResponse', loginResponse)
+      // console.log('loginResponse', loginResponse)
     } catch (error) {
-      console.log('Error Login', error)
+      // console.log('Error Login', error)
     }
   }
 

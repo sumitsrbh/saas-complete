@@ -27,7 +27,7 @@ router
 router
   .route('/:id')
   .get(cardController.getCard)
-  .patch(cardController.updateCard)
+  .patch(upload.single('imagelink'), cardController.updateCard)
   .delete(cardController.deleteCard)
 
 module.exports = router

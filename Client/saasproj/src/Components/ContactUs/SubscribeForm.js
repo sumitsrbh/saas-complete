@@ -46,7 +46,7 @@ function SubscribeForm() {
     }))
   }
   const formSubmitHandler = async (e) => {
-    console.log('input value:', input)
+    // console.log('input value:', input)
     e.preventDefault()
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/enquiry', {
@@ -59,7 +59,7 @@ function SubscribeForm() {
         input.response = response
       })
 
-      console.log('server response-input:', input.response.data.message)
+      // console.log('server response-input:', input.response.data.message)
       if (input.response.data.message === 'success') {
         setInputs(initialValues)
         setSnackbarKey((prevKey) => prevKey + 1)

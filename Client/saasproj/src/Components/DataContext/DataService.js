@@ -5,11 +5,11 @@ export const fetchCards = async () => {
     const response = await axios.get('http://127.0.0.1:8000/api/cards')
     const cardsData = response && response.data.data.cards
     const reversedCardsData = cardsData.reverse()
-    console.log(
-      'In fetchData response.data.data  data-type:',
-      typeof cardsData,
-      cardsData
-    )
+    // console.log(
+    //   'In fetchData response.data.data  data-type:',
+    //   typeof cardsData,
+    //   cardsData
+    // )
     return reversedCardsData
     // return cardsData
   } catch (error) {
@@ -33,10 +33,10 @@ export const fetchEnquiry = async () => {
 export const fetchDeleteCard = async (id) => {
   try {
     const response = await axios.delete(`http://127.0.0.1:8000/api/cards/${id}`)
-    console.log('response after delete', response)
+    // console.log('response after delete', response)
     const cardsData = response && response.data.data
     const reversedCardsData = cardsData.reverse()
-    console.log('response after deletion: ', response.data.message)
+    // console.log('response after deletion: ', response.data.message)
     if (response.data.message === 'Card deleted') {
       return reversedCardsData
     }
@@ -45,13 +45,15 @@ export const fetchDeleteCard = async (id) => {
     throw error
   }
 }
-export const fetchUpdateCard = async ({ id, editValues }) => {
+export const fetchUpdateCard = async ({ inputId, formData }) => {
+  // console.log('In the fetchUpdateCard, inputId', inputId)
+  // console.log('In the fetchUpdateCard, editedValues', formData)
   try {
     const response = await axios.patch(
-      `http://127.0.0.1:8000/api/cards/${id}`,
-      editValues
+      `http://127.0.0.1:8000/api/cards/${inputId}`,
+      formData
     )
-    console.log('response after update', response)
+    // console.log('response  fetchUpdateCard after update', response)
     const cardsData = response && response.data.data
     const reversedCardsData = cardsData.reverse()
     console.log('response after update: ', response.data.message)
@@ -59,25 +61,25 @@ export const fetchUpdateCard = async ({ id, editValues }) => {
       return reversedCardsData
     }
   } catch (error) {
-    console.log('Error deletion', error)
+    console.log('Error Updation', error)
     throw error
   }
 }
 export const fetchGetCard = async (id) => {
-  console.log('In the fetchCard, id value:', id)
+  // console.log('In the fetchCard, id value:', id)
   try {
-    console.log('In the fetchCard try, id value:', id)
+    // console.log('In the fetchCard try, id value:', id)
     const response = await axios.get(`http://127.0.0.1:8000/api/cards/${id}`)
-    console.log(
-      'response after get card, response.data.data',
-      response.data.data
-    )
+    // console.log(
+    //   'response after get card, response.data.data',
+    //   response.data.data
+    // )
     const cardsData = response && response.data.data
     // const reversedCardsData = cardsData.reverse()
-    console.log(
-      'response after update,response.data.message: ',
-      response.data.message
-    )
+    // console.log(
+    //   'response after update,response.data.message: ',
+    //   response.data.message
+    // )
     if (response.data.message === 'Card found') {
       return cardsData
     }
@@ -88,15 +90,15 @@ export const fetchGetCard = async (id) => {
 }
 
 export const fetchDeleteEnquiry = async (id) => {
-  console.log('equiry staged for deletion', id)
+  // console.log('equiry staged for deletion', id)
   try {
     const response = await axios.delete(
       `http://127.0.0.1:8000/api/enquiry/${id}`
     )
-    console.log('response after delete', response)
+    // console.log('response after delete', response)
     const enquiryData = response && response.data.data
     const reversedEnquiryData = enquiryData.reverse()
-    console.log('response after deletion: ', response.data.message)
+    // console.log('response after deletion: ', response.data.message)
     if (response.data.message === 'Enquiry deleted') {
       return reversedEnquiryData
     }

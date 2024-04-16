@@ -103,7 +103,7 @@ function EnquiryTable() {
   }, [enquiry])
 
   const handleRowClick = (e) => {
-    console.log('value of e', e.row)
+    // console.log('value of e', e.row)
     setPreviewOpen(!previewOpen)
     setPreviewvalue(e.row)
   }

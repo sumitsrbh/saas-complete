@@ -36,7 +36,7 @@ function AdminPanelV2() {
     setEnquiryTable,
   } = useData()
 
-  console.log('In admin panel cardEditState', cardEditState)
+  // console.log('In admin panel cardEditState', cardEditState)
 
   return (
     <Box

@@ -29,5 +29,5 @@ mongoose
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {
-  console.log(`app runnig on port ${port}...`)
+  // console.log(`app runnig on port ${port}...`)
 })
