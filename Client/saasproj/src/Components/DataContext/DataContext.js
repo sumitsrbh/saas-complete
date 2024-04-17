@@ -9,6 +9,7 @@ import {
   fetchGetCard,
 } from './DataService'
 import { useNavigate } from 'react-router-dom'
+import { Alert, Snackbar } from '@mui/material'
 
 const DataContext = createContext()
 
@@ -33,13 +34,11 @@ export const DataProvider = ({ children }) => {
   })
   const [loginError, setLoginError] = useState(null)
   const [input, setInputs] = useState(initialValues)
-  const [loginCredentials, setLoginCredentials] = useState(initialValues)
   const [enquiryTable, setEnquiryTable] = useState(false)
   const [selectedTab, setSelectedTab] = useState('Card Create')
   const [cardTable, setCardTable] = useState(false)
   const [cardCreated, setCardCreated] = useState(false)
   const navigate = useNavigate()
-  // const [deleteId, setDeleteId] = useState(null)
 
   useEffect(() => {
     // Load token from localStorage on component mount
@@ -88,10 +87,12 @@ export const DataProvider = ({ children }) => {
     if (tab === 'Cards Table') {
       setCardTable(true)
       setEnquiryTable(false)
+      // setCardEditState(false)
     } else if (tab === 'Enquiry') {
       // Navigate to the Enquiry table
       setEnquiryTable(true)
       setCardTable(false)
+      // setCardEditState(false)
       // navigate('/enquiry-table')
     } else if (tab === 'Card Create') {
       setEnquiryTable(false)
@@ -177,7 +178,7 @@ export const DataProvider = ({ children }) => {
           value: 'Logout',
           token: loginResult.data.token,
         })
-        navigate('/admin-panel')
+
         return loginResult
       }
     } catch (err) {
@@ -188,14 +189,29 @@ export const DataProvider = ({ children }) => {
 
   // Logout function to clear token from localStorage
   const logOutHanlder = () => {
-    // console.log('In the Login Logout handler')
-    localStorage.removeItem('token')
-    sessionStorage.removeItem('token')
-    setLoggedIn({
-      state: false,
-      value: 'Login',
-      token: null,
-    })
+    console.log('In the Logout handler')
+    if (logged.state) {
+      console.log('in the if statement manipulating logged')
+      localStorage.removeItem('token')
+      sessionStorage.removeItem('token')
+      console.log('in the if statement manipulating logged after clear')
+      setLoggedIn({
+        state: false,
+        value: 'Login',
+        token: null,
+      })
+    } else {
+      navigate('/login')
+    }
+    console.log('In the Logouthandler,  State:', logged.state)
+  }
+  const logInHandler = () => {
+    console.log('In the loginHandler')
+    if (logged.state) {
+      return <Alert>Already Logged in</Alert>
+    } else {
+      navigate('/login')
+    }
   }
 
   return (
@@ -225,6 +241,7 @@ export const DataProvider = ({ children }) => {
         loginFromSubmitHandler,
         logged,
         setLoggedIn,
+        logInHandler,
         loginError,
         logOutHanlder,
         input,

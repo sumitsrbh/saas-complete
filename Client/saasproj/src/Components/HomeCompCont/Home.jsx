@@ -15,12 +15,19 @@ import HomeFrstRowScndCol from './HomeFrstRowScndCol'
 import MightLike from './MightLike'
 import HomeScndRwFstColm from './HomeScndRwFstColm'
 import MorePost from '../MorePostFrmRdr/MorePost'
+import { useData } from '../DataContext/DataContext'
+import { useEffect } from 'react'
 
 function Home() {
+  const { cards } = useData()
   const theme = useTheme()
+
   // const isScreenLg = useMediaQuery(theme.breakpoints.down('lg'))
   const isScreenMd = useMediaQuery(theme.breakpoints.down('md'))
   // const isScreenSm = useMediaQuery(theme.breakpoints.down('sm'))
+
+  // to reload the page.
+
   return (
     <Paper
       className="main-container"

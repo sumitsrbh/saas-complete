@@ -32,6 +32,7 @@ function CardEditForm() {
   const inputId = cardEditValue._id
   const [imagePreview, setImagePreview] = useState(null)
   const [snackbarKey, setSnackbarKey] = useState(0)
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [error, setErr] = useState(false)
   // const [resStatus, setResponseStatus] = useState()
   const [modifiedFields, setModifiedFields] = useState({})
@@ -81,24 +82,35 @@ function CardEditForm() {
         formData
       )
       // console.log('response  fetchUpdateCard after update', response)
-      const cardsData = response && response.data.data
 
-      const reversedCardsData = cardsData.cards.reverse()
-      console.log('response after update: ', response.data.message)
-      if (response.data.message === 'Card updated') {
+      if (response) {
+        const cardsData = response && response.data.data
+        // console.log('response.data.data.cards', response.data.data.cards)
+        const reversedCardsData = cardsData.cards.reverse()
+        console.log('in the response of card edit snackbarOpen, cardEditVal')
         setCards(reversedCardsData)
+        setSnackbarOpen(true)
+        setCardEditValue(null)
+        console.log('in the if statement cardEdit state', cardEditState)
+        setInputs(null)
+
         setCardEditState(false)
+        setSelectedTab('Cards Table')
+        setSnackbarKey((prevKey) => prevKey + 1)
       }
     } catch (error) {
       console.log('Error Updation', error)
       throw error
     }
   }
+  console.log('CardEdit state in cardEdit Form ', cardEditState)
   const cancelButtonClick = () => {
     setCardEditState(false)
     setCardEditValue(null)
   }
   const handleSnackbarClose = () => {
+    setSnackbarOpen(false)
+    setCardEditState(false)
     setSelectedTab('Cards Table')
   }
 
@@ -204,7 +216,7 @@ function CardEditForm() {
 
           <Snackbar
             key={snackbarKey}
-            open={!cardEditState || error}
+            open={snackbarOpen || error}
             autoHideDuration={2000}
             onClose={handleSnackbarClose}
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}

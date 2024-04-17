@@ -7,7 +7,6 @@ import { SaaSButton } from '../ThemeCust'
 import { Login } from '@mui/icons-material'
 import LogoutIcon from '@mui/icons-material/Logout'
 
-import axios from 'axios'
 import SubscribeCardAlike from '../HomeCompCont/SubscribeCard'
 import { useData } from '../DataContext/DataContext'
 
@@ -25,10 +24,7 @@ const inputPropStyle = {
     fontWeight: '500',
   },
 }
-// const logo = {
-//   height: '40vmin',
-//   pointerEvents: 'none',
-// }
+
 const inputStyle = {
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
@@ -53,6 +49,7 @@ function LogIn() {
   const {
     logged,
     setLoggedIn,
+    logInHanlder,
     logOutHanlder,
     input,
     setInputs,
@@ -68,32 +65,6 @@ function LogIn() {
       [e.target.name]: e.target.value.trim(),
     }))
   }
-  // const formSubmitHandler = async (e) => {
-  //   e.preventDefault()
-  //   try {
-  //     const response = await axios.post(
-  //       'http://127.0.0.1:8000/api/users/login',
-  //       {
-  //         email: input.email,
-  //         password: input.password,
-  //       }
-  //     )
-  //     console.log('In login', response)
-  //     if (response.status === 200) {
-  //       console.log('login status', response.status)
-  //       setLoggedIn({
-  //         state: true,
-  //         value: 'Logout',
-  //         token: response.data.token,
-  //       })
-
-  //       navigate('/admin-panel')
-  //     }
-  //   } catch (err) {
-  //     console.log(err)
-  //     setError(err.response.data.message || 'Wrong credentials.')
-  //   }
-  // }
   const formSubmitHandlerCall = async (e) => {
     e.preventDefault()
     try {
@@ -101,14 +72,14 @@ function LogIn() {
         input.email,
         input.password
       )
-      // console.log('loginResponse', loginResponse)
-    } catch (error) {
-      // console.log('Error Login', error)
-    }
-  }
 
-  const logInHanlder = () => {
-    navigate('/login')
+      console.log('loginResponse', loginResponse)
+      if (loginResponse.data.status === 'success') {
+        navigate('/admin-panel')
+      }
+    } catch (error) {
+      console.log('Error Login', error)
+    }
   }
 
   return (
@@ -145,8 +116,7 @@ function LogIn() {
                 />
               </>
             ) : (
-              // <Alert severity="info">You are LoggedIn </Alert>
-              <></>
+              <Alert severity="info">You are LoggedIn </Alert>
             )}
 
             {!logged.state ? (

@@ -47,13 +47,7 @@ const inputPropStyle = {
 }
 
 function CardCreateTemplate() {
-  const {
-    cardCreated,
-    setCardCreated,
-    setSelectedTab,
-    setCardTable,
-    setCards,
-  } = useData()
+  const { cardCreated, setCardCreated, setSelectedTab, setCards } = useData()
   const [input, setInputs] = useState(initialValues)
   const [error, setErr] = useState(false)
   const [snackbarKey, setSnackbarKey] = useState(0)
@@ -111,6 +105,7 @@ function CardCreateTemplate() {
         setInputs(initialValues)
         setSnackbarKey((prevKey) => prevKey + 1)
         setCardCreated(true)
+        console.log('cardCreated in create template,', cardCreated)
       }
     } catch (err) {
       console.log('Error submitting enquiry:', err)

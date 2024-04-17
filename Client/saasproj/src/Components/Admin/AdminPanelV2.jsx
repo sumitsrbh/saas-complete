@@ -5,6 +5,7 @@ import {
   ListItem,
   ListItemButton,
   Paper,
+  Typography,
 } from '@mui/material'
 import CardTable from './Table/CardTable'
 import EnquiryTable from './Table/EnquiryTable'
@@ -37,6 +38,7 @@ function AdminPanelV2() {
   } = useData()
 
   // console.log('In admin panel cardEditState', cardEditState)
+  console.log('In admin panel logged state', logged.state)
 
   return (
     <Box
@@ -95,6 +97,7 @@ function AdminPanelV2() {
       ) : (
         <Paper sx={contanierStyle}>
           <Alert severity="warning">Please login</Alert>
+          <Typography>{logged.state}</Typography>
         </Paper>
       )}
     </Box>

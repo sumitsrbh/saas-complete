@@ -21,11 +21,15 @@ import { useData } from '../Components/DataContext/DataContext'
 
 function NavDrawer({ links }) {
   const theme = useTheme()
-  const { logged } = useData()
+  const { logged, logOutHanlder, logInHandler } = useData()
 
   // const isBelowLg = useMediaQuery(theme.breakpoints.down('lg'))
   const isBelowMd = useMediaQuery(theme.breakpoints.down('md'))
   // const isBelowSm = useMediaQuery(theme.breakpoints.down('sm'))
+  function loginStateHandler() {
+    console.log('In NavDrawer loginStateHadler', logged.state)
+    logged.state ? logOutHanlder() : logInHandler()
+  }
 
   return (
     <AppBar sx={StyleDropDownfrmAppbr}>
@@ -72,7 +76,7 @@ function NavDrawer({ links }) {
                   Promote Your SaaS
                 </SaaSButton>
               )}
-              <SaaSButton component={Link} to={'/login'}>
+              {/* <SaaSButton component={Link} to={'/login'}>
                 {logged.state ? <LogoutIcon /> : <Login />}
 
                 <Typography
@@ -81,6 +85,17 @@ function NavDrawer({ links }) {
                   }}
                 >
                   {logged.state ? 'Logout' : 'Login'}
+                </Typography>
+              </SaaSButton> */}
+              <SaaSButton onClick={loginStateHandler}>
+                {logged.state ? <LogoutIcon /> : <Login />}
+
+                <Typography
+                  sx={{
+                    fontSize: { md: '14px', lg: '16px' },
+                  }}
+                >
+                  {logged.value}
                 </Typography>
               </SaaSButton>
             </Grid>
