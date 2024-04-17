@@ -107,7 +107,7 @@ export const DataProvider = ({ children }) => {
       if (deleteResult) {
         setCards(deleteResult)
         // console.log('deleteResult :', deleteResult)
-        setCardDeleteState(true)
+        // setCardDeleteState(true)
         return cards
       }
     } catch (error) {
