@@ -41,7 +41,20 @@ function NavDrawer({ links }) {
                 <ImgLogoComp />
               </IconButton>
             </Grid>
-            <Grid item xs={9} />
+            <Grid item xs={7} />
+            <Grid item xs={2}>
+              <SaaSButton onClick={loginStateHandler}>
+                {logged.state ? <LogoutIcon /> : <Login />}
+
+                <Typography
+                  sx={{
+                    fontSize: { md: '14px', lg: '16px' },
+                  }}
+                >
+                  {logged.value}
+                </Typography>
+              </SaaSButton>
+            </Grid>
             <Grid item xs={1}>
               <DrawerCmpnt links={links} />
             </Grid>
@@ -76,17 +89,6 @@ function NavDrawer({ links }) {
                   Promote Your SaaS
                 </SaaSButton>
               )}
-              {/* <SaaSButton component={Link} to={'/login'}>
-                {logged.state ? <LogoutIcon /> : <Login />}
-
-                <Typography
-                  sx={{
-                    fontSize: { md: '14px', lg: '16px' },
-                  }}
-                >
-                  {logged.state ? 'Logout' : 'Login'}
-                </Typography>
-              </SaaSButton> */}
               <SaaSButton onClick={loginStateHandler}>
                 {logged.state ? <LogoutIcon /> : <Login />}
 

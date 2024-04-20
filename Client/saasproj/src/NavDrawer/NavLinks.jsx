@@ -2,9 +2,11 @@ import { Box, Tab, Tabs } from '@mui/material'
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { StyleDropDownfrmAppbr } from '../Components/ThemeCust'
+import { useData } from '../Components/DataContext/DataContext'
 
 function NavLinks({ links, oreintationCust = 'horizontal' }) {
   const [currentTab, setCurrentTab] = useState(0)
+  const { logged } = useData()
   // const handleTabChange = (e, newValue) => {
   //   setCurrentTab(newValue)
   // }

@@ -1,4 +1,5 @@
 const express = require('express')
+const fs = require('fs')
 const Card = require('../models/cardModels')
 const catchAsync = require('../utils/catchAsync')
 
@@ -167,6 +168,15 @@ exports.updateCard = catchAsync(async (req, res, next) => {
   })
 })
 
+const deleteImage = (imagelink) => {
+  fs.unlink(imagelink, (err) => {
+    if (err) {
+      console.log('Erro deleting image:', err)
+    }
+    console.log('Image deleted succefully')
+  })
+}
+
 exports.deleteCard = catchAsync(async (req, res, next) => {
   const card = await Card.findByIdAndDelete(req.params.id, req.body)
 
@@ -176,6 +186,9 @@ exports.deleteCard = catchAsync(async (req, res, next) => {
       data: null,
     })
   }
+
+  //delete the image file
+  deleteImage(card.imagelink)
   // fetch the update list of cards
   const resultCard = await Card.find()
   // const cards = manipulateImagelink(resultCard)
